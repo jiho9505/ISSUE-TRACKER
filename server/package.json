@@ -1,0 +1,24 @@
+{
+  "name": "new_project",
+  "version": "1.0.0",
+  "description": "new_project",
+  "main": "app.js",
+  "engine": {
+    "node": "v16.13.0",
+    "npm": "8.1.0"
+  },
+  "scripts": {
+    "start": "nodemon server/app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "type": "module"
+}
