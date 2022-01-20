@@ -1,0 +1,46 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --config ./config/webpack.config.dev.js --progress",
+    "build:dev": "webpack --config ./config/webpack.config.dev.js",
+    "build:prod": "webpack --config ./config/webpack.config.prod.js",
+    "build:report": "webpack-bundle-analyzer --port 8888 ./build/stats.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "sideEffects": [
+    "*.css"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@emotion/babel-plugin": "^11.7.2",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^6.2.0",
+    "dotenv-webpack": "^7.0.3",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.2.0",
+    "style-loader": "^3.2.1",
+    "terser-webpack-plugin": "^5.2.3",
+    "webpack": "^5.49.0",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "core-js": "^3.17.2",
+    "react": "^18.0.0-rc.0",
+    "react-dom": "^18.0.0-rc.0"
+  }
+}
