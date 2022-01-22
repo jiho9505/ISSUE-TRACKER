@@ -47,4 +47,5 @@ const HomeButton = styled.button`
   font-size: 1.3rem;
   color: white;
   background-color: ${(props) => props.bgColor};
+  cursor: pointer;
 `;
