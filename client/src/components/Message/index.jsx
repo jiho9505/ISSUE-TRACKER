@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import ModalPortal from '@/utils/portal';
 
-const animationTime = 1700;
+const animationTime = 2000;
 
 /**
  * @param mode = 'success' | 'fail' | 'caution'
  */
-const Message = ({ text, children, mode }) => {
+const Message = ({ children, mode }) => {
+  const [isActive, setIsActive] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsActive(false);
+    }, animationTime);
+  }, []);
+
   const createIcon = () => {
     switch (mode) {
       case 'success':
@@ -33,15 +41,18 @@ const Message = ({ text, children, mode }) => {
     }
   };
   return (
-    <WholeContainer>
-      <MessageContainer>
-        <Text>
-          {createIcon()}
-          {text}
-        </Text>
-        {children}
-      </MessageContainer>
-    </WholeContainer>
+    isActive && (
+      <ModalPortal>
+        <WholeContainer>
+          <MessageContainer>
+            <Text>
+              {createIcon()}
+              {children}
+            </Text>
+          </MessageContainer>
+        </WholeContainer>
+      </ModalPortal>
+    )
   );
 };
 
@@ -49,13 +60,13 @@ export default Message;
 
 const showMessage = keyframes`
   from {
-    transform: translateY(-15%);
+    transform: translateY(-10%);
   }
-  50% {
-    transform: translateY(20%);
+  80%{
+    transform: translateY(5%);
   }
   100% {
-    transform: translateY(-35%);
+    transform: translateY(-15%);
   }
 `;
 
