@@ -1,21 +1,21 @@
 import React, { useState, useContext, useEffect, createContext } from 'react';
 
-const HistoryContext = createContext({ curLocation: '/' });
+const HistoryContext = createContext(null);
+
+export const useNavigate = () => {
+  const { navigateTo } = useContext(HistoryContext);
+  return navigateTo;
+};
 
 const Router = ({ children }) => {
   const [curLocation, setCurLocation] = useState(window.location.pathname);
-  const [forceRenderCount, setForceRenderCount] = useState(0);
 
-  const forceRender = () => {
-    setForceRenderCount((prev) => prev + 1);
+  const navigateTo = (path) => {
+    history.pushState('', '', path);
+    setCurLocation(path);
   };
 
   useEffect(() => {
-    History.prototype.push = (path) => {
-      window.history.pushState('', '', path);
-      setCurLocation(path);
-    };
-
     const movePage = ({ target }) => {
       const nextPath = target.location.pathname;
       setCurLocation(nextPath);
@@ -28,7 +28,7 @@ const Router = ({ children }) => {
     };
   }, []);
 
-  return <HistoryContext.Provider value={{ curLocation, forceRender }}>{children}</HistoryContext.Provider>;
+  return <HistoryContext.Provider value={{ navigateTo }}>{children}</HistoryContext.Provider>;
 };
 
 const pathToRegex = (path) => new RegExp('^' + path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)') + '$');
@@ -57,12 +57,11 @@ const Route = ({ children }) => {
   return children;
 };
 
-const Link = ({ to, children, shouldForceRender = false, ...rest }) => {
-  const { forceRender } = useContext(HistoryContext);
+const Link = ({ to, children, ...rest }) => {
+  const navigateTo = useNavigate();
 
   const handleClickLink = () => {
-    if (shouldForceRender) forceRender();
-    window.history.push(to);
+    navigateTo(to);
     rest.onClick?.();
   };
 
