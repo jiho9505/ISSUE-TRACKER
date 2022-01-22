@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
 
 import Loader from './components/Loader';
 import NotFound from './pages/NotFound';
@@ -15,17 +16,19 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <ErrorBoundary FallbackComponent={Error}>
-          <Suspense fallback={Loader}>
-            <PageContainer>
-              <Router>{RouterContent}</Router>
-            </PageContainer>
-          </Suspense>
-        </ErrorBoundary>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <ErrorBoundary FallbackComponent={Error}>
+            <Suspense fallback={Loader}>
+              <PageContainer>
+                <Router>{RouterContent}</Router>
+              </PageContainer>
+            </Suspense>
+          </ErrorBoundary>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 };
 
