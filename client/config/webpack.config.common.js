@@ -1,18 +1,18 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: "./src/index.jsx",
+  entry: './src/index.jsx',
   output: {
-    path: path.resolve(__dirname, "../build"),
-    publicPath: "/",
-    filename: "[name].js",
+    path: path.resolve(__dirname, '../../server/build'),
+    publicPath: '/',
+    filename: '[name].js',
   },
   resolve: {
-    extensions: [".jsx", ".js"],
+    extensions: ['.jsx', '.js'],
     alias: {
-      "@": path.resolve(__dirname, "../src"),
+      '@': path.resolve(__dirname, '../src'),
     },
   },
   module: {
@@ -20,23 +20,23 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: "babel-loader",
+        use: 'babel-loader',
       },
       {
         test: /\.(jpg|jpeg|png|gif|ico)$/,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "images/[name][ext]",
+          filename: 'images/[name][ext]',
         },
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
     }),
     new Dotenv({
-      path: process.env.NODE_ENV === "development" ? ".env.dev" : ".env",
+      path: process.env.NODE_ENV === 'development' ? '.env.dev' : '.env',
     }),
   ],
 };
