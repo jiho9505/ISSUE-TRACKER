@@ -62,3 +62,15 @@ nav ul {
 * {
     box-sizing: border-box;
 }
+
+button,input {
+    border: none;
+}
+
+input{
+    outline: none;
+}
+
+button {
+  cursor: pointer;
+}
