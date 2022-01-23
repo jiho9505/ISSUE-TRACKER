@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { ERROR_IMG } from '@/static/constants/image-path';
 import { useTheme } from '@emotion/react';
+
+import CustomButton from '@/components/CustomButton';
+
+import { ERROR_IMG } from '@/static/constants/image-path';
 
 const Error = ({ error, resetErrorBoundary }) => {
   const theme = useTheme();
+
   return (
     <ErrorContainer bgColor={theme.colors.background}>
+      <span class="error-title">ERROR❗️</span>
       <span>{error.message}</span>
       <img className="error" src={ERROR_IMG} alt="에러" />
-      <Button onClick={resetErrorBoundary} bgColor={theme.colors.blue}>
+      <CustomButton handleClick={resetErrorBoundary} sizeLevel={2} bgColor={theme.colors.blue}>
         Try again
-      </Button>
+      </CustomButton>
     </ErrorContainer>
   );
 };
@@ -27,22 +32,17 @@ const ErrorContainer = styled.div`
   height: 100vh;
   background-color: ${(props) => props.bgColor};
 
+  .error-title {
+    color: #f56342;
+    margin-bottom: 20px;
+  }
+
   span {
     font-size: 1.2rem;
   }
+
   .error {
     width: 20%;
     height: 30%;
   }
-`;
-
-const Button = styled.button`
-  border: none;
-  border-radius: 18px;
-  width: 200px;
-  height: 60px;
-  font-size: 1.3rem;
-  color: white;
-  background-color: ${(props) => props.bgColor};
-  cursor: pointer;
 `;

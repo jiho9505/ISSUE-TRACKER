@@ -2,19 +2,22 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
+import CustomButton from '@/components/CustomButton';
+
 import { ERROR_IMG } from '@/static/constants/image-path';
-import { Link } from '@/core/Router';
+import { useNavigate } from '@/core/Router';
 
 const NotFound = () => {
   const theme = useTheme();
+  const navigateTo = useNavigate();
 
   return (
     <NotFoundContainer>
       <span>404 NOT FOUND PAGE❗️</span>
       <img className="notfound" src={ERROR_IMG} alt="NOT FOUND" />
-      <Link to="/">
-        <HomeButton bgColor={theme.colors.blue}>Go To Home</HomeButton>
-      </Link>
+      <CustomButton onClick={() => navigateTo('/')} sizeLevel={2} bgColor={theme.colors.blue}>
+        Go To Home
+      </CustomButton>
     </NotFoundContainer>
   );
 };
@@ -37,15 +40,4 @@ const NotFoundContainer = styled.div`
     width: 20%;
     height: 30%;
   }
-`;
-
-const HomeButton = styled.button`
-  border: none;
-  border-radius: 18px;
-  width: 200px;
-  height: 60px;
-  font-size: 1.3rem;
-  color: white;
-  background-color: ${(props) => props.bgColor};
-  cursor: pointer;
 `;
