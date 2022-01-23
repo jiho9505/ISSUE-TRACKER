@@ -8,7 +8,7 @@
     "start": "webpack serve --config ./config/webpack.config.dev.js --progress",
     "build:dev": "webpack --config ./config/webpack.config.dev.js",
     "build:prod": "webpack --config ./config/webpack.config.prod.js",
-    "build:report": "webpack-bundle-analyzer --port 8888 ./build/stats.json"
+    "build:report": "webpack-bundle-analyzer --port 8888 ../server/build/stats.json"
   },
   "keywords": [],
   "author": "",
