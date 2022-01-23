@@ -12,6 +12,38 @@ function UserForm({ btnContent, mode }) {
   const [pwd, setPwd] = useState('');
   const [opacity, setOpacity] = useState(0.5);
 
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    if (mode === '로그인') {
+      alert('로그인');
+    } else if (mode === '회원가입') {
+      alert('회원가입');
+      // 2초 후 로그인 페이지로
+    }
+  };
+
+  const handleChangeId = (e) => {
+    controlDisable(e.currentTarget.value, 'id');
+    setId(e.currentTarget.value);
+  };
+
+  const handleChangePwd = (e) => {
+    controlDisable(e.currentTarget.value, 'pwd');
+    setPwd(e.currentTarget.value);
+  };
+
+  const controlDisable = (value, type) => {
+    if (!value) {
+      setOpacity(0.5);
+      return;
+    }
+    if (type === 'id') {
+      pwd && setOpacity(1);
+    } else if (type === 'pwd') {
+      id && setOpacity(1);
+    }
+  };
+
   return (
     <Form onSubmit={handleSubmitForm} color={theme.colors.blue}>
       <input
