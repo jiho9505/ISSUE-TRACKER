@@ -14,11 +14,15 @@ const disableOpacity = 0.5;
 const enableOpacity = 1;
 const switchPageTime = 2000;
 
+/**
+ * @param mode : register | login
+ */
 function UserForm({ btnContent, mode }) {
   const theme = useTheme();
   const navigateTo = useNavigate();
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('');
   const [opacity, setOpacity] = useState(disableOpacity);
   const setToast = useSetRecoilState(toastAtom);
 
@@ -70,33 +74,63 @@ function UserForm({ btnContent, mode }) {
     setPwd(e.currentTarget.value);
   };
 
+  const handleChangeConfirmPwd = (e) => {
+    controlDisable(e.currentTarget.value, 'confirmPwd');
+    setConfirmPwd(e.currentTarget.value);
+  };
+
   const controlDisable = (value, type) => {
     if (!value) {
       setOpacity(disableOpacity);
       return;
     }
-    if (type === 'id') pwd && setOpacity(enableOpacity);
-    else if (type === 'pwd') id && setOpacity(enableOpacity);
+
+    if (mode === '로그인') {
+      if (type === 'id') pwd && setOpacity(enableOpacity);
+      else if (type === 'pwd') id && setOpacity(enableOpacity);
+      return;
+    }
+    if (mode === '회원가입') {
+      if (type === 'id') pwd && confirmPw && setOpacity(enableOpacity);
+      else if (type === 'pwd') id && confirmPwd && setOpacity(enableOpacity);
+      else if (type === 'confirmPwd') id && pwd && setOpacity(enableOpacity);
+    }
+  };
+  const createInput = () => {
+    return (
+      <>
+        <input
+          value={id}
+          onChange={handleChangeId}
+          type="text"
+          autoComplete="username"
+          required
+          placeholder="아이디"
+        ></input>
+        <input
+          value={pwd}
+          onChange={handleChangePwd}
+          type="password"
+          autoComplete="current-password"
+          required
+          placeholder="비밀번호"
+        ></input>
+        {mode === '회원가입' && (
+          <input
+            value={confirmPwd}
+            onChange={handleChangeConfirmPwd}
+            type="password"
+            required
+            placeholder="비밀번호 재확인"
+          ></input>
+        )}
+      </>
+    );
   };
 
   return (
     <Form onSubmit={handleSubmitForm} color={theme.colors.blue}>
-      <input
-        value={id}
-        onChange={handleChangeId}
-        type="text"
-        autoComplete="username"
-        required
-        placeholder="아이디"
-      ></input>
-      <input
-        value={pwd}
-        onChange={handleChangePwd}
-        type="password"
-        autoComplete="current-password"
-        required
-        placeholder="비밀번호"
-      ></input>
+      {createInput()}
       <CustomButton
         opacity={opacity}
         sizeLevel={3}
