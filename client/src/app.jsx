@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import theme from './static/style/theme';
 import { Router, Switch, Route } from './core/Router';
 import Register from './pages/Register';
+import Message from './components/Message';
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const createMainContent = () => {
           </Route>
         </Switch>
       </Router>
+      <Message></Message>
     </PageContainer>
   );
 };

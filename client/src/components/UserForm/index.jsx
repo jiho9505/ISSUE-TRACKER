@@ -1,25 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
+import { useSetRecoilState } from 'recoil';
 
 import CustomButton from '@/components/CustomButton';
 
+import { toastAtom } from '@/store/atoms';
 import { allCenterAlign } from '@/static/style/mixin';
+import { useNavigate } from '@/core/Router';
+
+let timer = 0;
+const disableOpacity = 0.5;
+const enableOpacity = 1;
+const switchPageTime = 2000;
 
 function UserForm({ btnContent, mode }) {
   const theme = useTheme();
+  const navigateTo = useNavigate();
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
-  const [opacity, setOpacity] = useState(0.5);
+  const [opacity, setOpacity] = useState(disableOpacity);
+  const setToast = useSetRecoilState(toastAtom);
+
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (mode === '로그인') {
-      alert('로그인');
-    } else if (mode === '회원가입') {
-      alert('회원가입');
-      // 2초 후 로그인 페이지로
+      loginLogic();
+      return;
     }
+    if (mode === '회원가입') {
+      registerLogic();
+    }
+  };
+
+  const loginLogic = () => {
+    // login API 통신
+    alert('로그인');
+  };
+
+  const registerLogic = () => {
+    // register API 통신
+    setToast({
+      isActive: true,
+      title: '회원가입이 되었습니다❗️',
+      content: '2초 후 로그인페이지로 이동합니다',
+      mode: 'success',
+    });
+
+    switchPage();
+  };
+
+  const switchPage = () => {
+    timer = setTimeout(() => {
+      navigateTo('/');
+    }, switchPageTime);
   };
 
   const handleChangeId = (e) => {
@@ -34,14 +72,11 @@ function UserForm({ btnContent, mode }) {
 
   const controlDisable = (value, type) => {
     if (!value) {
-      setOpacity(0.5);
+      setOpacity(disableOpacity);
       return;
     }
-    if (type === 'id') {
-      pwd && setOpacity(1);
-    } else if (type === 'pwd') {
-      id && setOpacity(1);
-    }
+    if (type === 'id') pwd && setOpacity(enableOpacity);
+    else if (type === 'pwd') id && setOpacity(enableOpacity);
   };
 
   return (
