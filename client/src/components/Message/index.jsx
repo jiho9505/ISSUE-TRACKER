@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import { useRecoilState } from 'recoil';
+
+import { toastAtom } from '@/store/atoms';
 import ModalPortal from '@/utils/portal';
 
+let timer = 0;
 const animationTime = 2000;
-
+const defaultToastValue = { isActive: false, title: '', content: '', mode: 'fail' };
 /**
  * @param mode = 'success' | 'fail' | 'caution'
  */
-const Message = ({ children, mode }) => {
-  const [isActive, setIsActive] = useState(true);
+const Message = () => {
+  const [toast, setToast] = useRecoilState(toastAtom);
   useEffect(() => {
-    setTimeout(() => {
-      setIsActive(false);
-    }, animationTime);
-  }, []);
+    if (toast.isActive) {
+      timer = setTimeout(() => {
+        setToast(defaultToastValue);
+      }, animationTime);
+    }
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   const createIcon = () => {
-    switch (mode) {
+    switch (toast.mode) {
       case 'success':
         return (
           <SuccessContainer>
@@ -41,14 +48,15 @@ const Message = ({ children, mode }) => {
     }
   };
   return (
-    isActive && (
+    toast.isActive && (
       <ModalPortal>
         <WholeContainer>
           <MessageContainer>
             <Text>
               {createIcon()}
-              {children}
+              {toast.title}
             </Text>
+            <Content>{toast.content}</Content>
           </MessageContainer>
         </WholeContainer>
       </ModalPortal>
@@ -88,9 +96,11 @@ const MessageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70px;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 80px;
   padding: 15px 20px;
-  width: 430px;
+  min-width: 430px;
   background: #f6f6f6;
   border-radius: 0.5rem;
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
@@ -100,6 +110,10 @@ const MessageContainer = styled.div`
 const Text = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const Content = styled.div`
+  font-size: 1rem;
 `;
 
 const SuccessContainer = styled.div`
