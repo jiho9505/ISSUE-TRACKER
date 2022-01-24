@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import styled from '@emotion/styled';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ThemeProvider } from '@emotion/react';
@@ -6,16 +6,17 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
 import Loader from './components/Loader';
-import NotFound from './pages/NotFound';
 import Error from './components/Error';
-import Login from './pages/Login';
+import Message from './components/Message';
 
 import theme from './static/style/theme';
 import { Router, Switch, Route } from './core/Router';
-import Register from './pages/Register';
-import Message from './components/Message';
 
 const queryClient = new QueryClient();
+
+const Login = lazy(() => import('./pages/Login' /* webpackPrefetch: true */));
+const Register = lazy(() => import('./pages/Register' /* webpackPrefetch: true */));
+const NotFound = lazy(() => import('./pages/NotFound' /* webpackPrefetch: true */));
 
 const App = () => {
   return (
@@ -41,9 +42,6 @@ const createMainContent = () => {
           </Route>
           <Route path="/register">
             <Register />
-          </Route>
-          <Route path="/bye">
-            <div>Bye</div>
           </Route>
           <Route path="/:notfound">
             <NotFound />
