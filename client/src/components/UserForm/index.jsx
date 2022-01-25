@@ -46,13 +46,55 @@ function UserForm({ btnContent, mode }) {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (mode === '로그인') {
-      loginLogic();
+      handleLoginAPI();
     } else if (mode === '회원가입') {
-      registerLogic();
+      const isValid = checkValidation();
+      isValid && handleRegisterAPI();
     }
   };
 
-  const loginLogic = async () => {
+  const checkValidation = () => {
+    if (!checkIdValidation()) {
+      setToast({
+        isActive: true,
+        title: 'ID는 영어 또는 영어+숫자 조합만 가능합니다.',
+        mode: 'caution',
+      });
+      return false;
+    }
+    if (!checkPwdValidation()) {
+      setToast({
+        isActive: true,
+        title: '비밀번호는 영어+숫자+특수문자 조합만 가능합니다.',
+        mode: 'caution',
+      });
+      return false;
+    }
+    if (pwd !== confirmPwd) {
+      setToast({
+        isActive: true,
+        title: '비밀번호가 일치하지 않습니다.',
+        mode: 'caution',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const checkIdValidation = () => {
+    if (id.search(/[a-zA-Z]/g) === -1) return false;
+    if (id.search(/[^a-zA-Z0-9]/g) >= 0) return false;
+    return true;
+  };
+
+  const checkPwdValidation = () => {
+    if (pwd.search(/[a-zA-Z]/g) === -1) return false;
+    if (pwd.search(/[0-9]/g) === -1) return false;
+    if (pwd.search(/[~!@#$%^&*-+=]/g) === -1) return false;
+    return true;
+  };
+
+  const handleLoginAPI = async () => {
     const result = await api.post('/users/login', { id, password: pwd });
     if (!result.isSuccess) {
       setToast({
@@ -66,7 +108,7 @@ function UserForm({ btnContent, mode }) {
     navigateTo('/main');
   };
 
-  const registerLogic = async () => {
+  const handleRegisterAPI = async () => {
     const result = await api.post('/users/register', { id, password: pwd });
     if (!result.isSuccess) {
       setToast({
@@ -107,6 +149,8 @@ function UserForm({ btnContent, mode }) {
           autoComplete="username"
           required
           placeholder="아이디"
+          minLength="6"
+          maxLength="16"
         ></input>
         <input
           value={pwd}
@@ -115,6 +159,8 @@ function UserForm({ btnContent, mode }) {
           autoComplete="current-password"
           required
           placeholder="비밀번호"
+          minLength="6"
+          maxLength="12"
         ></input>
         {mode === '회원가입' && (
           <input
@@ -123,6 +169,8 @@ function UserForm({ btnContent, mode }) {
             type="password"
             required
             placeholder="비밀번호 재확인"
+            minLength="6"
+            maxLength="12"
           ></input>
         )}
       </>
