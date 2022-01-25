@@ -6,21 +6,23 @@ import { allCenterAlign } from '@/static/style/mixin';
 
 const CustomButton = ({
   children,
-  onSubmit,
-  onClick,
+  onSubmit = () => {},
+  onClick = () => {},
   sizeLevel,
   bgColor,
   color = 'white',
   opacity = 1,
+  className,
 }) => {
   return (
     <Button
-      onSubmit={onSubmit ? onSubmit : () => {}}
-      onClick={onClick ? onClick : () => {}}
+      onSubmit={onSubmit}
+      onClick={onClick}
       sizeLevel={sizeLevel}
       bgColor={bgColor}
       spanColor={color}
       opacity={opacity}
+      className={className}
     >
       <span>{children}</span>
     </Button>
@@ -34,7 +36,6 @@ const Button = styled.button`
   padding: 0px 24px;
   background: ${(props) => props.bgColor};
   border-radius: 20px;
-  margin-top: 30px;
   opacity: ${(props) => props.opacity};
   ${() => getButtonSize}
 
@@ -42,18 +43,42 @@ const Button = styled.button`
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
-    line-height: 32px;
-    text-align: center;
+    ${() => getFontSize}
+    display: flex;
+    align-items: center;
+    gap: 5px;
     color: ${(props) => props.spanColor};
   }
 `;
+
+const getFontSize = ({ sizeLevel }) => {
+  switch (sizeLevel) {
+    case 1:
+      return css`
+        font-size: 12px;
+      `;
+    case 2:
+      return css`
+        font-size: 15px;
+      `;
+    case 3:
+      return css`
+        font-size: 18px;
+        line-height: 32px;
+      `;
+    default:
+      return css`
+        font-size: 18px;
+        line-height: 32px;
+      `;
+  }
+};
 
 const getButtonSize = ({ sizeLevel }) => {
   switch (sizeLevel) {
     case 1:
       return css`
-        width: 120px;
+        width: 140px;
         height: 40px;
       `;
     case 2:
