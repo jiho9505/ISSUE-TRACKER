@@ -52,7 +52,19 @@ function UserForm({ btnContent, mode }) {
     }
   };
 
-  const loginLogic = async () => {};
+  const loginLogic = async () => {
+    const result = await api.post('/users/login', { id, password: pwd });
+    if (!result.isSuccess) {
+      setToast({
+        isActive: true,
+        title: result.message,
+        mode: 'fail',
+      });
+      return;
+    }
+
+    navigateTo('/main');
+  };
 
   const registerLogic = async () => {
     const result = await api.post('/users/register', { id, password: pwd });
