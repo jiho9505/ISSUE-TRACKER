@@ -10,13 +10,14 @@ import Error from './components/Error';
 import Message from './components/Message';
 
 import theme from './static/style/theme';
-import { Router, Switch, Route } from './core/Router';
+import { Router, Route, Switch } from './core/Router';
 
 const queryClient = new QueryClient();
 
 const Login = lazy(() => import('./pages/Login' /* webpackPrefetch: true */));
 const Register = lazy(() => import('./pages/Register' /* webpackPrefetch: true */));
 const NotFound = lazy(() => import('./pages/NotFound' /* webpackPrefetch: true */));
+const Main = lazy(() => import('./pages/Main' /* webpackPrefetch: true */));
 
 const App = () => {
   return (
@@ -24,7 +25,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <ErrorBoundary FallbackComponent={Error}>
-            <Suspense fallback={Loader}>{createMainContent()}</Suspense>
+            <Suspense fallback={<Loader />}>{createMainContent()}</Suspense>
           </ErrorBoundary>
         </ThemeProvider>
       </QueryClientProvider>
@@ -43,6 +44,9 @@ const createMainContent = () => {
           <Route path="/register">
             <Register />
           </Route>
+          <Route path="/main">
+            <Main />
+          </Route>
           <Route path="/:notfound">
             <NotFound />
           </Route>
@@ -59,4 +63,5 @@ const PageContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.background};
+  margin: 0 auto;
 `;
