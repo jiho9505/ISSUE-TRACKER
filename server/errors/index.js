@@ -1,6 +1,10 @@
 export const error = {
   NOT_LOGIN_ERROR: '로그인이 필요한 서비스입니다.',
   JWT_TOKEN_INVALID_ERROR: '더 이상 유효하지 않은 토큰입니다.',
+  INCORRECT_ID_ERROR: '존재하지 않는 유저입니다.',
+  INCORRECT_PWD_ERROR: '비밀번호를 다시 한 번 확인해주세요.',
+  CHECK_ID_ERROR: '중복된 ID가 존재합니다.',
+  LOGOUT_ERROR: '로그아웃에 실패하였습니다.',
   GET_COMMENT_ERROR: '댓글 목록을 가져오는데 실패하였습니다.',
   CREATE_COMMENT_ERROR: '댓글을 게시하는데 실패하였습니다.',
   DELETE_COMMENT_ERROR: '댓글를 삭제하는데 실패하였습니다.',
