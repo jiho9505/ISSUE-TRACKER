@@ -8,6 +8,7 @@ import CustomButton from '@/components/CustomButton';
 import { toastAtom } from '@/store/atoms';
 import { allCenterAlign } from '@/static/style/mixin';
 import { useNavigate } from '@/core/Router';
+import { api } from '@/api/base';
 
 let timer = 0;
 const disableOpacity = 0.5;
@@ -30,6 +31,16 @@ function UserForm({ btnContent, mode }) {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (mode === '로그인') {
+      if (id && pwd) setOpacity(enableOpacity);
+      else setOpacity(disableOpacity);
+    } else if (mode === '회원가입') {
+      if (id && pwd && confirmPwd) setOpacity(enableOpacity);
+      else setOpacity(disableOpacity);
+    }
+  }, [id, pwd, confirmPwd]);
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (mode === '로그인') {
@@ -46,8 +57,7 @@ function UserForm({ btnContent, mode }) {
     alert('로그인');
   };
 
-  const registerLogic = () => {
-    // register API 통신
+  const registerLogic = async () => {
     setToast({
       isActive: true,
       title: '회원가입이 되었습니다❗️',
@@ -64,38 +74,10 @@ function UserForm({ btnContent, mode }) {
     }, switchPageTime);
   };
 
-  const handleChangeId = (e) => {
-    controlDisable(e.currentTarget.value, 'id');
-    setId(e.currentTarget.value);
-  };
+  const handleChangeId = (e) => setId(e.currentTarget.value);
+  const handleChangePwd = (e) => setPwd(e.currentTarget.value);
+  const handleChangeConfirmPwd = (e) => setConfirmPwd(e.currentTarget.value);
 
-  const handleChangePwd = (e) => {
-    controlDisable(e.currentTarget.value, 'pwd');
-    setPwd(e.currentTarget.value);
-  };
-
-  const handleChangeConfirmPwd = (e) => {
-    controlDisable(e.currentTarget.value, 'confirmPwd');
-    setConfirmPwd(e.currentTarget.value);
-  };
-
-  const controlDisable = (value, type) => {
-    if (!value) {
-      setOpacity(disableOpacity);
-      return;
-    }
-
-    if (mode === '로그인') {
-      if (type === 'id') pwd && setOpacity(enableOpacity);
-      else if (type === 'pwd') id && setOpacity(enableOpacity);
-      return;
-    }
-    if (mode === '회원가입') {
-      if (type === 'id') pwd && confirmPw && setOpacity(enableOpacity);
-      else if (type === 'pwd') id && confirmPwd && setOpacity(enableOpacity);
-      else if (type === 'confirmPwd') id && pwd && setOpacity(enableOpacity);
-    }
-  };
   const createInput = () => {
     return (
       <>
