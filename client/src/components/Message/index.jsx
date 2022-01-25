@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import { useRecoilState } from 'recoil';
 
 import { toastAtom } from '@/store/atoms';
@@ -26,34 +26,23 @@ const Message = () => {
   const createIcon = () => {
     switch (toast.mode) {
       case 'success':
-        return (
-          <SuccessContainer>
-            <i className="fas fa-check-circle"></i>
-          </SuccessContainer>
-        );
+        return <i className="fas fa-check-circle"></i>;
       case 'fail':
-        return (
-          <FailContainer>
-            <i className="fas fa-exclamation-circle"></i>
-          </FailContainer>
-        );
+        return <i className="fas fa-exclamation-circle"></i>;
       case 'caution':
-        return (
-          <CautionContainer>
-            <i className="fas fa-exclamation-triangle"></i>
-          </CautionContainer>
-        );
+        return <i className="fas fa-exclamation-triangle"></i>;
       default:
         return '';
     }
   };
+
   return (
     toast.isActive && (
       <ModalPortal>
         <WholeContainer>
           <MessageContainer>
             <Text>
-              {createIcon()}
+              <IconContainer mode={toast.mode}>{createIcon()}</IconContainer>
               {toast.title}
             </Text>
             <Content>{toast.content}</Content>
@@ -116,23 +105,24 @@ const Content = styled.div`
   font-size: 1rem;
 `;
 
-const SuccessContainer = styled.div`
+const IconContainer = styled.div`
   i {
     margin-right: 10px;
-    color: #12db47;
+    ${() => getIconColor}
   }
 `;
 
-const FailContainer = styled.div`
-  i {
-    margin-right: 10px;
-    color: #f56342;
-  }
-`;
-
-const CautionContainer = styled.div`
-  i {
-    margin-right: 10px;
-    color: #fcf003;
-  }
-`;
+const getIconColor = ({ mode }) => {
+  if (mode === 'success')
+    return css`
+      color: #12db47;
+    `;
+  if (mode === 'fail')
+    return css`
+      color: #f56342;
+    `;
+  if (mode === 'caution')
+    return css`
+      color: #fcf003;
+    `;
+};
