@@ -8,6 +8,7 @@ import ApiRouter from './routes/index.js';
 
 dotenv.config();
 const app = express();
+const __dirname = path.resolve();
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -23,9 +24,9 @@ app.use(cors());
 app.use(cookieParser());
 app.use('/api', ApiRouter);
 
-app.use(express.static('server/build'));
+app.use(express.static(path.resolve(__dirname, 'server', 'build')));
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve('./build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'server', 'build', 'index.html'));
 });
 
 const port = process.env.PORT || 5000;
