@@ -10,3 +10,7 @@ export const garoCenterAlign = css`
   display: flex;
   justify-content: center;
 `;
+
+export const defaultPagePadding = css`
+  padding: 120px 350px;
+`;
