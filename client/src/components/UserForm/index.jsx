@@ -31,7 +31,9 @@ function UserForm({ btnContent, mode }) {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
+  useEffect(() => controlOpacity(), [id, pwd, confirmPwd]);
+
+  const controlOpacity = () => {
     if (mode === '로그인') {
       if (id && pwd) setOpacity(enableOpacity);
       else setOpacity(disableOpacity);
@@ -39,25 +41,30 @@ function UserForm({ btnContent, mode }) {
       if (id && pwd && confirmPwd) setOpacity(enableOpacity);
       else setOpacity(disableOpacity);
     }
-  }, [id, pwd, confirmPwd]);
+  };
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (mode === '로그인') {
       loginLogic();
-      return;
-    }
-    if (mode === '회원가입') {
+    } else if (mode === '회원가입') {
       registerLogic();
     }
   };
 
-  const loginLogic = () => {
-    // login API 통신
-    alert('로그인');
-  };
+  const loginLogic = async () => {};
 
   const registerLogic = async () => {
+    const result = await api.post('/users/register', { id, password: pwd });
+    if (!result.isSuccess) {
+      setToast({
+        isActive: true,
+        title: result.message,
+        mode: 'fail',
+      });
+      return;
+    }
+
     setToast({
       isActive: true,
       title: '회원가입이 되었습니다❗️',
