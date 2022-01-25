@@ -14,7 +14,7 @@ export const api = {
     } catch (e) {
       return {
         isSuccess: false,
-        message: e.toString(),
+        message: e.message,
       };
     }
   },
@@ -22,7 +22,7 @@ export const api = {
   post: async (url, body) => {
     try {
       const { data } = await axios.post(`${API_PREFIX}${url}`, body);
-      if (!data.success) throw new Error(data.message);
+      if (!data.success) throw data;
       return {
         isSuccess: true,
         data,
@@ -30,7 +30,7 @@ export const api = {
     } catch (e) {
       return {
         isSuccess: false,
-        message: e.toString(),
+        message: e.message,
       };
     }
   },
@@ -46,7 +46,7 @@ export const api = {
     } catch (e) {
       return {
         isSuccess: false,
-        message: e.toString(),
+        message: e.message,
       };
     }
   },
@@ -62,7 +62,7 @@ export const api = {
     } catch (e) {
       return {
         isSuccess: false,
-        message: e.toString(),
+        message: e.message,
       };
     }
   },
