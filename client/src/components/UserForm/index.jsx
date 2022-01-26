@@ -149,7 +149,7 @@ function UserForm({ btnContent, mode }) {
           autoComplete="username"
           required
           placeholder="아이디"
-          minLength="6"
+          minLength={mode === '회원가입' ? '6' : ''}
           maxLength="16"
         ></input>
         <input
@@ -159,7 +159,7 @@ function UserForm({ btnContent, mode }) {
           autoComplete="current-password"
           required
           placeholder="비밀번호"
-          minLength="6"
+          minLength={mode === '회원가입' ? '6' : ''}
           maxLength="12"
         ></input>
         {mode === '회원가입' && (
