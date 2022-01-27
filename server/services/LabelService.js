@@ -6,4 +6,9 @@ const getLabels = async () => {
   return result;
 };
 
+const getLength = async () => {
+  const result = await Label.find({});
+  return result.length;
+};
+
 export const LabelService = { getLabels, getLength, createLabel, updateLabel, deleteLabel };

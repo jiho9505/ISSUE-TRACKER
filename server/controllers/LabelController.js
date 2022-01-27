@@ -14,4 +14,17 @@ const getLabels = async (req, res) => {
   }
 };
 
+const getLength = async (req, res) => {
+  try {
+    const result = await LabelService.getLength();
+
+    return res.json({
+      success: true,
+      result,
+    });
+  } catch (e) {
+    return res.json({ success: false, message: error.GET_LABEL_LENGTH_ERROR });
+  }
+};
+
 export const LabelController = { getLabels, getLength, createLabel, updateLabel, deleteLabel };
