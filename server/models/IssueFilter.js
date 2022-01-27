@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-const IssueFliterSchema = new Schema(
+const IssueFilterSchema = new Schema(
   {
     name: {
       type: String,
@@ -19,6 +19,6 @@ const IssueFliterSchema = new Schema(
   { timestamps: true }
 );
 
-const issueFliter = model('IssueFliter', IssueFliterSchema);
+const IssueFilter = model('IssueFilter', IssueFilterSchema);
 
-export { issueFliter };
+export { IssueFilter };
