@@ -139,47 +139,39 @@ function UserForm({ btnContent, mode }) {
   const handleChangePwd = (e) => setPwd(e.currentTarget.value);
   const handleChangeConfirmPwd = (e) => setConfirmPwd(e.currentTarget.value);
 
-  const createInput = () => {
-    return (
-      <>
-        <input
-          value={id}
-          onChange={handleChangeId}
-          type="text"
-          autoComplete="username"
-          required
-          placeholder="아이디"
-          minLength={mode === '회원가입' ? '6' : ''}
-          maxLength="16"
-        ></input>
-        <input
-          value={pwd}
-          onChange={handleChangePwd}
-          type="password"
-          autoComplete="current-password"
-          required
-          placeholder="비밀번호"
-          minLength={mode === '회원가입' ? '6' : ''}
-          maxLength="12"
-        ></input>
-        {mode === '회원가입' && (
-          <input
-            value={confirmPwd}
-            onChange={handleChangeConfirmPwd}
-            type="password"
-            required
-            placeholder="비밀번호 재확인"
-            minLength="6"
-            maxLength="12"
-          ></input>
-        )}
-      </>
-    );
-  };
-
   return (
     <Form onSubmit={handleSubmitForm} color={theme.colors.blue}>
-      {createInput()}
+      <input
+        value={id}
+        onChange={handleChangeId}
+        type="text"
+        autoComplete="username"
+        required
+        placeholder="아이디"
+        minLength={mode === '회원가입' ? '6' : ''}
+        maxLength="16"
+      ></input>
+      <input
+        value={pwd}
+        onChange={handleChangePwd}
+        type="password"
+        autoComplete="current-password"
+        required
+        placeholder="비밀번호"
+        minLength={mode === '회원가입' ? '6' : ''}
+        maxLength="12"
+      ></input>
+      {mode === '회원가입' && (
+        <input
+          value={confirmPwd}
+          onChange={handleChangeConfirmPwd}
+          type="password"
+          required
+          placeholder="비밀번호 재확인"
+          minLength="6"
+          maxLength="12"
+        ></input>
+      )}
       <CustomButton
         opacity={opacity}
         sizeLevel={3}

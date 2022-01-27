@@ -2,16 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { allCenterAlign } from '@/static/style/mixin';
+import { EMPTY } from '@/static/constants/image-path';
+import { useTheme } from '@emotion/react';
 
 const Empty = () => {
+  const theme = useTheme();
   return (
     <EmptyContainer>
-      <EmptySpan>❗️EMPTY❗️</EmptySpan>
-      <img
-        className="empty"
-        src="https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/empty-box.gif"
-        alt="Empty"
-      />
+      <EmptySpan theme={theme}>Nothing is here...</EmptySpan>
+      <img className="empty" src={EMPTY} alt="Empty" />
     </EmptyContainer>
   );
 };
@@ -27,4 +26,5 @@ const EmptyContainer = styled.div`
 
 const EmptySpan = styled.span`
   font-size: 2rem;
+  color: ${(props) => props.theme.colors.text};
 `;

@@ -18,6 +18,7 @@ const Login = lazy(() => import('./pages/Login' /* webpackPrefetch: true */));
 const Register = lazy(() => import('./pages/Register' /* webpackPrefetch: true */));
 const NotFound = lazy(() => import('./pages/NotFound' /* webpackPrefetch: true */));
 const Main = lazy(() => import('./pages/Main' /* webpackPrefetch: true */));
+const Writing = lazy(() => import('./pages/Writing' /* webpackPrefetch: true */));
 
 const App = () => {
   return (
@@ -46,6 +47,9 @@ const createMainContent = () => {
           </Route>
           <Route path="/main">
             <Main />
+          </Route>
+          <Route path="/write">
+            <Writing />
           </Route>
           <Route path="/:notfound">
             <NotFound />

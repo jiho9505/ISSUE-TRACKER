@@ -28,10 +28,15 @@ const Router = ({ children }) => {
     };
   }, []);
 
-  return <HistoryContext.Provider value={{ navigateTo, curLocation }}>{children}</HistoryContext.Provider>;
+  return (
+    <HistoryContext.Provider value={{ navigateTo, curLocation }}>
+      {children}
+    </HistoryContext.Provider>
+  );
 };
 
-const pathToRegex = (path) => new RegExp('^' + path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)') + '$');
+const pathToRegex = (path) =>
+  new RegExp('^' + path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)') + '$');
 
 const Switch = ({ children }) => {
   const { curLocation } = useContext(HistoryContext);
