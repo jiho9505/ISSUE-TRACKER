@@ -19,6 +19,8 @@ const Register = lazy(() => import('./pages/Register' /* webpackPrefetch: true *
 const NotFound = lazy(() => import('./pages/NotFound' /* webpackPrefetch: true */));
 const Main = lazy(() => import('./pages/Main' /* webpackPrefetch: true */));
 const Writing = lazy(() => import('./pages/Writing' /* webpackPrefetch: true */));
+const Label = lazy(() => import('./pages/Label' /* webpackPrefetch: true */));
+const MileStone = lazy(() => import('./pages/MileStone' /* webpackPrefetch: true */));
 
 const App = () => {
   return (
@@ -39,21 +41,13 @@ const createMainContent = () => {
     <PageContainer>
       <Router>
         <Switch>
-          <Route path="/">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/main">
-            <Main />
-          </Route>
-          <Route path="/write">
-            <Writing />
-          </Route>
-          <Route path="/:notfound">
-            <NotFound />
-          </Route>
+          <Route path="/" component={<Login />} />
+          <Route path="/register" component={<Register />} />
+          <Route path="/main" component={<Main />} />
+          <Route path="/write" component={<Writing />} />
+          <Route path="/label" component={<Label />} />
+          <Route path="/milestone" component={<MileStone />} />
+          <Route path="/:notfound" component={<NotFound />} />
         </Switch>
       </Router>
       <Message></Message>

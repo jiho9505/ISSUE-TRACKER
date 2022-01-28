@@ -55,11 +55,12 @@ const Switch = ({ children }) => {
   if (!match) return children[children.length - 1];
 
   const choicedChildIdx = match.idx;
+
   return children[choicedChildIdx];
 };
 
-const Route = ({ children }) => {
-  return children;
+const Route = ({ component }) => {
+  return component;
 };
 
 const Link = ({ to, children, ...rest }) => {
