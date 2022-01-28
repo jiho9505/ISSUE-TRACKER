@@ -8,10 +8,10 @@ export const CALENDAR_BLUE =
   'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/calendar-blue.png';
 export const CALENDAR =
   'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/calendar.png';
-export const CANCLE_BLUE =
-  'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/cancle-blue.png';
 
-export const CANCLE = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/cancle.png';
+export const CANCEL_BLUE =
+  'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/cancel-blue.png';
+export const CANCEL = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/cancel.png';
 
 export const CHECKED_CIRCLE =
   'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/checkedCircle.png';
@@ -36,7 +36,6 @@ export const GUIDE = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com
 
 export const REFRESH =
   'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/IconsRefresh.png';
-
 export const TRASH =
   'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/IconsTrash.png';
 
@@ -45,9 +44,7 @@ export const PLUS_WHITE =
 export const PLUS = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/plus.png';
 
 export const SEARCH = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/search.png';
-
 export const SMILE = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/smile.png';
-
 export const TAG = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/tag.png';
 
 export const WRITE_BLUE =
@@ -58,6 +55,6 @@ export const WRITE = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com
 
 export const ERROR_IMG =
   'https://fgd-storeimage.s3.ap-northeast-2.amazonaws.com/storeImages/notfound.gif';
-
-export const EMPTY =
-  'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/empty-box.gif';
+export const EMPTY = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/empty.gif';
+export const PREPARE =
+  'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/prepare.gif';
