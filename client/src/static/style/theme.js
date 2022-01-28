@@ -10,6 +10,7 @@ export default {
     placeholder: '#A0A3BD',
     activeTitle: '#14142B',
     fitlerText: '#4E4B66',
+    red: '#FF3B30',
   },
   font: {
     thick: 'BMDOHYEON',
