@@ -37,7 +37,7 @@ const Button = styled.button`
   background: ${(props) => props.bgColor};
   border-radius: 20px;
   opacity: ${(props) => props.opacity};
-  ${() => getButtonSize}
+  ${() => getButtonCss}
 
   span {
     font-family: Noto Sans KR;
@@ -74,12 +74,14 @@ const getFontSize = ({ sizeLevel }) => {
   }
 };
 
-const getButtonSize = ({ sizeLevel }) => {
+const getButtonCss = ({ sizeLevel }) => {
   switch (sizeLevel) {
     case 1:
       return css`
-        width: 140px;
+        width: 120px;
         height: 40px;
+        background: #007aff;
+        border-radius: 11px;
       `;
     case 2:
       return css`

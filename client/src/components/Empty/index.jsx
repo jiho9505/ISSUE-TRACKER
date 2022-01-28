@@ -10,7 +10,7 @@ const Empty = () => {
   return (
     <EmptyContainer>
       <EmptySpan theme={theme}>Nothing is here...</EmptySpan>
-      <img className="empty" src={EMPTY} alt="Empty" />
+      <img src={EMPTY} alt="Empty" />
     </EmptyContainer>
   );
 };
@@ -26,5 +26,6 @@ const EmptyContainer = styled.div`
 
 const EmptySpan = styled.span`
   font-size: 2rem;
+  font-weight: bold;
   color: ${(props) => props.theme.colors.text};
 `;

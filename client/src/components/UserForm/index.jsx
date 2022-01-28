@@ -65,7 +65,7 @@ function UserForm({ btnContent, mode }) {
     if (!checkPwdValidation()) {
       setToast({
         isActive: true,
-        title: '비밀번호는 영어+숫자+특수문자 조합만 가능합니다.',
+        title: '비밀번호는 영어+숫자+특수문자 조합만 가능합니다 (한글 주의)',
         mode: 'caution',
       });
       return false;
@@ -88,9 +88,13 @@ function UserForm({ btnContent, mode }) {
   };
 
   const checkPwdValidation = () => {
-    if (pwd.search(/[a-zA-Z]/g) === -1) return false;
-    if (pwd.search(/[0-9]/g) === -1) return false;
-    if (pwd.search(/[~!@#$%^&*-+=]/g) === -1) return false;
+    if (
+      pwd.search(/[a-zA-Z]/g) === -1 ||
+      pwd.search(/[0-9]/g) === -1 ||
+      pwd.search(/[~!@#$%^&*-+=]/g) === -1
+    )
+      return false;
+
     return true;
   };
 
