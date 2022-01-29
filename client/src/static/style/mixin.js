@@ -19,5 +19,6 @@ export const seroCenterAlign = css`
 export const defaultPageFrame = css`
   padding-top: 120px;
   width: 1220px;
+  height: 100vh;
   margin: 0 auto;
 `;
