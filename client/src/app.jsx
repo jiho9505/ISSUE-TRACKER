@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 
 import Loader from './components/Loader';
@@ -31,6 +32,7 @@ const App = () => {
             <Suspense fallback={<Loader />}>{createMainContent()}</Suspense>
           </ErrorBoundary>
         </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </RecoilRoot>
   );
