@@ -37,4 +37,15 @@ const createLabel = async (req, res) => {
   }
 };
 
+const updateLabel = async (req, res) => {
+  try {
+    const labelId = req.query.id;
+    const data = req.body;
+    await LabelService.updateLabel(labelId, data);
+    return res.json({ success: true });
+  } catch (e) {
+    return res.json({ success: false, message: error.UPDATE_LABEL_ERROR });
+  }
+};
+
 export const LabelController = { getLabels, getLength, createLabel, updateLabel, deleteLabel };

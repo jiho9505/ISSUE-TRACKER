@@ -1,4 +1,5 @@
 import { Label } from '../models/Label.js';
+import { BoardLabel } from '../models/BoardLabel.js';
 import { error } from '../errors/index.js';
 
 const getLabels = async () => {
@@ -16,6 +17,10 @@ const createLabel = async (data) => {
   if (labelInfo) throw new Error(error.CREATE_LABEL_ERROR);
   const label = new Label(data);
   await label.save();
+};
+
+const updateLabel = async (_id, data) => {
+  await Label.findOneAndUpdate({ _id }, data);
 };
 
 export const LabelService = { getLabels, getLength, createLabel, updateLabel, deleteLabel };
