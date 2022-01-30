@@ -22,6 +22,7 @@ const PreParationContainer = styled.div`
   flex-direction: column;
   background-color: white;
   padding: 30px 0;
+  height: 100%;
 
   img {
     margin-top: 50px;
