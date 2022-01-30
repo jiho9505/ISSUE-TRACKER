@@ -1,4 +1,7 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
+
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
 const labelSchema = new Schema(
   {
@@ -7,14 +10,14 @@ const labelSchema = new Schema(
       required: true,
       unique: 1,
     },
-    content: {
+    description: {
       type: String,
     },
     bgColor: {
       type: String,
       required: true,
     },
-    color: {
+    textColor: {
       type: String,
       required: true,
     },

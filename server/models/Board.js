@@ -5,7 +5,7 @@ const model = mongoose.model;
 
 const boardSchema = new Schema(
   {
-    writer: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
