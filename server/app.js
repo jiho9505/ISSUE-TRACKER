@@ -3,12 +3,13 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import ApiRouter from './routes/index.js';
+import loadDotEnv from './config/dotenv.js';
 
-dotenv.config();
-const app = express();
+loadDotEnv();
+
 const __dirname = path.resolve();
+const app = express();
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -20,7 +21,8 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.ORIGIN }));
+
 app.use(cookieParser());
 app.use('/api', ApiRouter);
 

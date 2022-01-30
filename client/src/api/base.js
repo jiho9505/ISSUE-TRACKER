@@ -2,14 +2,18 @@ import axios from 'axios';
 
 const API_PREFIX = process.env.API_PREFIX;
 
+const config = {
+  withCredentials: true,
+};
+
 const request = async (url, method, body = {}) => {
   try {
     const API_ENDPOINT = API_PREFIX + url;
     const { data } =
-      (method === 'get' && (await axios.get(API_ENDPOINT))) ||
-      (method === 'post' && (await axios.post(API_ENDPOINT, body))) ||
-      (method === 'put' && (await axios.put(API_ENDPOINT, body))) ||
-      (method === 'delete' && (await axios.delete(API_ENDPOINT)));
+      (method === 'get' && (await axios.get(API_ENDPOINT, config))) ||
+      (method === 'post' && (await axios.post(API_ENDPOINT, body, config))) ||
+      (method === 'put' && (await axios.put(API_ENDPOINT, body, config))) ||
+      (method === 'delete' && (await axios.delete(API_ENDPOINT, config)));
 
     if (!data.success) throw new Error(data.message);
     return {
