@@ -33,3 +33,9 @@ export const api = {
   update: async (url, body) => await request(url, 'put', body),
   delete: async (url) => await request(url, 'delete', body),
 };
+
+// API for React Query
+export const GET = (url) => axios.get(`${API_PREFIX}${url}`, config);
+export const POST = (url, body) => axios.post(`${API_PREFIX}${url}`, body, config);
+export const PUT = (url, body) => axios.put(`${API_PREFIX}${url}`, body, config);
+export const DELETE = (url) => axios.delete(`${API_PREFIX}${url}`, config);
