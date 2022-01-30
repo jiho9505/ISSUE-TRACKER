@@ -48,4 +48,14 @@ const updateLabel = async (req, res) => {
   }
 };
 
+const deleteLabel = async (req, res) => {
+  try {
+    const labelId = req.query.id;
+    await LabelService.deleteLabel(labelId);
+    return res.json({ success: true });
+  } catch (e) {
+    return res.json({ success: false, message: error.DELETE_LABEL_ERROR });
+  }
+};
+
 export const LabelController = { getLabels, getLength, createLabel, updateLabel, deleteLabel };

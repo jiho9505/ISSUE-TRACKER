@@ -23,4 +23,8 @@ const updateLabel = async (_id, data) => {
   await Label.findOneAndUpdate({ _id }, data);
 };
 
+const deleteLabel = async (_id) => {
+  await Promise.all([Label.findOneAndDelete({ _id }), BoardLabel.deleteMany({ labelId: _id })]);
+};
+
 export const LabelService = { getLabels, getLength, createLabel, updateLabel, deleteLabel };
