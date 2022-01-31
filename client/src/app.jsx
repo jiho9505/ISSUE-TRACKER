@@ -45,14 +45,14 @@ const createMainContent = () => {
         <Switch>
           <Route path="/" component={<Login />} />
           <Route path="/register" component={<Register />} />
-          <Route path="/main" component={<Main />} />
-          <Route path="/write" component={<Writing />} />
-          <Route path="/label" component={<Label />} />
-          <Route path="/milestone" component={<MileStone />} />
+          <Route path="/main" component={<Main />} auth />
+          <Route path="/write" component={<Writing />} auth />
+          <Route path="/label" component={<Label />} auth />
+          <Route path="/milestone" component={<MileStone />} auth />
           <Route path="/:notfound" component={<NotFound />} />
         </Switch>
       </Router>
-      <Message></Message>
+      <Message />
     </PageContainer>
   );
 };
