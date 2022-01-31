@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect, createContext } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
-import { isLoggedInAtom } from '@/store/loginState';
+import { api } from '../api/base';
+import { toastAtom } from '../store/toastState';
 
 const HistoryContext = createContext({ curLocation: '/', navigateTo: () => {} });
 
@@ -12,6 +13,7 @@ export const useNavigate = () => {
 
 const Router = ({ children }) => {
   const [curLocation, setCurLocation] = useState(window.location.pathname);
+
   const navigateTo = (path) => {
     history.pushState('', '', path);
     setCurLocation(path);
@@ -41,8 +43,23 @@ const pathToRegex = (path) =>
 
 const Switch = ({ children }) => {
   const { curLocation } = useContext(HistoryContext);
-  const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  const loginComponent = children[0];
+  const navigateTo = useNavigate();
+  const setToast = useSetRecoilState(toastAtom);
+
+  const routerGuard = async (page) => {
+    const result = await api.get('/users/auth');
+    if (page.props.auth === 'accessor' && !result.isSuccess) {
+      setToast({
+        isActive: true,
+        title: '로그인이 필요한 서비스입니다.',
+        mode: 'fail',
+      });
+      navigateTo('/');
+    }
+    if (page.props.auth === 'no-accessor' && result.isSuccess) {
+      navigateTo('/main');
+    }
+  };
 
   const routes = children.map((child) => child.props.path);
   const potentialMatches = routes.map((route, idx) => {
@@ -58,7 +75,7 @@ const Switch = ({ children }) => {
   const choicedChildIdx = match.idx;
   const choicedPage = children[choicedChildIdx];
 
-  if (choicedPage.props.auth && !isLoggedIn) return loginComponent;
+  routerGuard(choicedPage);
   return choicedPage;
 };
 

@@ -38,17 +38,20 @@ const App = () => {
   );
 };
 
+/**
+ * @auth [ no-accessor : 비접속 유저 / accessor : 접속 유저 ]
+ */
 const createMainContent = () => {
   return (
     <PageContainer>
       <Router>
         <Switch>
-          <Route path="/" component={<Login />} />
-          <Route path="/register" component={<Register />} />
-          <Route path="/main" component={<Main />} auth />
-          <Route path="/write" component={<Writing />} auth />
-          <Route path="/label" component={<Label />} auth />
-          <Route path="/milestone" component={<MileStone />} auth />
+          <Route path="/" component={<Login />} auth="no-accessor" />
+          <Route path="/register" component={<Register />} auth="no-accessor" />
+          <Route path="/main" component={<Main />} auth="accessor" />
+          <Route path="/write" component={<Writing />} auth="accessor" />
+          <Route path="/label" component={<Label />} auth="accessor" />
+          <Route path="/milestone" component={<MileStone />} auth="accessor" />
           <Route path="/:notfound" component={<NotFound />} />
         </Switch>
       </Router>
