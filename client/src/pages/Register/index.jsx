@@ -4,11 +4,15 @@ import styled from '@emotion/styled';
 import UserForm from '@/components/UserForm';
 
 import { allCenterAlign } from '@/static/style/mixin';
+import { useNavigate } from '@/core/Router';
 
 function Register() {
+  const navigateTo = useNavigate();
+  const handleClickTitle = () => navigateTo('/');
+
   return (
     <RegisterContainer>
-      <Title>ISSUE TRACKER</Title>
+      <Title onClick={handleClickTitle}>ISSUE TRACKER</Title>
       <UserForm btnContent="회원가입" mode="회원가입" />
     </RegisterContainer>
   );
