@@ -1,13 +1,30 @@
 import { UserService } from './../services/UserService.js';
-
 import { error } from '../errors/index.js';
 
 const auth = (req, res) => {
   return res.json({ success: true });
 };
 
-const github = (req, res) => {
-  return res.json({ success: true });
+const github = async (req, res) => {
+  try {
+    const code = req.body.authorizationCode;
+    const [accessToken, refreshToken] = await UserService.github(code);
+    return res
+      .cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .json({
+        success: true,
+      });
+  } catch (e) {
+    console.log(e);
+    return res.json({ success: false, message: error.COMMON_ERROR });
+  }
 };
 
 const getFirstChar = async (req, res) => {

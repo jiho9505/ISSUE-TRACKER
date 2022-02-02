@@ -19,6 +19,13 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
+    avatar: {
+      type: String,
+    },
+    name: {
+      required: true,
+      type: String,
+    },
   },
   { timestamps: true }
 );
