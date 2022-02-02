@@ -1,35 +1,38 @@
-const { merge } = require("webpack-merge");
-const commonWebpack = require("./webpack.config.common");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { merge } = require('webpack-merge');
+const commonWebpack = require('./webpack.config.common');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const Dotenv = require('dotenv-webpack');
 
 module.exports = merge(commonWebpack, {
-  mode: "production",
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: '[name].css',
     }),
     new BundleAnalyzerPlugin({
-      analyzerMode: "disabled",
+      analyzerMode: 'disabled',
       openAnalyzer: false,
       generateStatsFile: true,
     }),
     new CleanWebpackPlugin(),
+    new Dotenv({
+      path: '.env',
+    }),
   ],
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       minSize: 20000,
       minRemainingSize: 0,
       minChunks: 1,
