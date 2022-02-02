@@ -1,13 +1,36 @@
-import { error } from '../errors/index.js';
 import { UserService } from './../services/UserService.js';
+
+import { error } from '../errors/index.js';
+
+const auth = (req, res) => {
+  return res.json({ success: true });
+};
+
+const github = (req, res) => {
+  return res.json({ success: true });
+};
+
+const getFirstChar = async (req, res) => {
+  try {
+    const _id = req._id;
+    const result = await UserService.getFirstChar(_id);
+    return res.json({ success: true, result });
+  } catch (e) {
+    return res.json({ success: false, message: error.COMMON_ERROR });
+  }
+};
 
 const login = async (req, res) => {
   try {
     const { id, password } = req.body;
-    const token = await UserService.login(id, password);
+    const [accessToken, refreshToken] = await UserService.login(id, password);
 
     return res
-      .cookie('w_auth', token, {
+      .cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
       })
@@ -31,11 +54,11 @@ const registerUser = async (req, res) => {
 
 const logout = (req, res) => {
   try {
-    UserService.logout(res);
+    UserService.logout(req, res);
     return res.json({ success: true });
   } catch (e) {
     return res.json({ success: false, message: error.LOGOUT_ERROR });
   }
 };
 
-export const UserController = { logout, registerUser, login };
+export const UserController = { logout, registerUser, github, login, getFirstChar, auth };

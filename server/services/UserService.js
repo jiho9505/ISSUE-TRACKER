@@ -18,7 +18,7 @@ const login = async (id, password) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) throw new Error(error.INCORRECT_PWD_ERROR);
 
-  const accessToken = jwt.sign({ _id: user._id }, 'secret', { expiresIn: '7000' });
+  const accessToken = jwt.sign({ _id: user._id }, 'secret', { expiresIn: '1h' });
   const refreshToken = jwt.sign({ _id: user._id }, 'secret', { expiresIn: '14d' });
 
   await User.findOneAndUpdate({ id }, { refreshToken });
