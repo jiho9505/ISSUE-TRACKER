@@ -51,7 +51,7 @@ const Switch = ({ children }) => {
     if (page.props.auth === 'accessor' && !result.isSuccess) {
       setToast({
         isActive: true,
-        title: '로그인이 필요한 서비스입니다.',
+        title: result.message,
         mode: 'fail',
       });
       navigateTo('/');
