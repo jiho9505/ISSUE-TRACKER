@@ -12,7 +12,7 @@ const request = async (url, method, body = {}) => {
     const { data } =
       (method === 'get' && (await axios.get(API_ENDPOINT, config))) ||
       (method === 'post' && (await axios.post(API_ENDPOINT, body, config))) ||
-      (method === 'put' && (await axios.put(API_ENDPOINT, body, config))) ||
+      (method === 'patch' && (await axios.patch(API_ENDPOINT, body, config))) ||
       (method === 'delete' && (await axios.delete(API_ENDPOINT, config)));
 
     if (!data.success) throw new Error(data.message);
@@ -30,12 +30,12 @@ const request = async (url, method, body = {}) => {
 export const api = {
   get: async (url) => await request(url, 'get'),
   post: async (url, body) => await request(url, 'post', body),
-  update: async (url, body) => await request(url, 'put', body),
+  update: async (url, body) => await request(url, 'patch', body),
   delete: async (url) => await request(url, 'delete', body),
 };
 
 // API for React Query
 export const GET = (url) => axios.get(`${API_PREFIX}${url}`, config);
 export const POST = (url, body) => axios.post(`${API_PREFIX}${url}`, body, config);
-export const PUT = (url, body) => axios.put(`${API_PREFIX}${url}`, body, config);
+export const PATCH = (url, body) => axios.patch(`${API_PREFIX}${url}`, body, config);
 export const DELETE = (url) => axios.delete(`${API_PREFIX}${url}`, config);
