@@ -9,6 +9,7 @@ import { RecoilRoot } from 'recoil';
 import Loader from './components/Loader';
 import Error from './components/Error';
 import Message from './components/Message';
+import Callback from './components/GithubCallBack';
 
 import theme from './static/style/theme';
 import { Router, Route, Switch } from './core/Router';
@@ -52,6 +53,7 @@ const createMainContent = () => {
           <Route path="/write" component={<Writing />} auth="accessor" />
           <Route path="/label" component={<Label />} auth="accessor" />
           <Route path="/milestone" component={<MileStone />} auth="accessor" />
+          <Route path="/callback" component={<Callback />} auth="no-accessor" />
           <Route path="/:notfound" component={<NotFound />} />
         </Switch>
       </Router>
