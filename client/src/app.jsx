@@ -20,7 +20,7 @@ const Login = lazy(() => import('./pages/Login' /* webpackPrefetch: true */));
 const Register = lazy(() => import('./pages/Register' /* webpackPrefetch: true */));
 const NotFound = lazy(() => import('./pages/NotFound' /* webpackPrefetch: true */));
 const Main = lazy(() => import('./pages/Main' /* webpackPrefetch: true */));
-const Writing = lazy(() => import('./pages/Writing' /* webpackPrefetch: true */));
+const IssueWrite = lazy(() => import('./pages/IssueWrite' /* webpackPrefetch: true */));
 const Label = lazy(() => import('./pages/Label' /* webpackPrefetch: true */));
 const MileStone = lazy(() => import('./pages/MileStone' /* webpackPrefetch: true */));
 
@@ -50,7 +50,7 @@ const createMainContent = () => {
           <Route path="/" component={<Login />} auth="no-accessor" />
           <Route path="/register" component={<Register />} auth="no-accessor" />
           <Route path="/main" component={<Main />} auth="accessor" />
-          <Route path="/write" component={<Writing />} auth="accessor" />
+          <Route path="/write" component={<IssueWrite />} auth="accessor" />
           <Route path="/label" component={<Label />} auth="accessor" />
           <Route path="/milestone" component={<MileStone />} auth="accessor" />
           <Route path="/callback" component={<Callback />} auth="no-accessor" />
