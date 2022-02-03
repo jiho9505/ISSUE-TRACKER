@@ -6,13 +6,19 @@ import CustomButton from '@/components/CustomButton';
 import UserForm from '@/components/UserForm';
 
 import { allCenterAlign } from '@/static/style/mixin';
-import { Link } from '@/core/Router';
+import { useNavigate } from '@/core/Router';
 
 function Login() {
   const theme = useTheme();
+  const navigateTo = useNavigate();
 
-  const handleClickGithubLogin = () => {
-    alert('깃헙로그인 준비중..!');
+  const handleClickGithubLogin = async () => {
+    const URL = `https://github.com/login/oauth/authorize?client_id=${process.env.OAUTH_ID}`;
+    window.location.assign(URL);
+  };
+
+  const handleClickRegisterSpan = () => {
+    navigateTo('/register');
   };
 
   return (
@@ -23,9 +29,9 @@ function Login() {
       </CustomButton>
       <OrSpan color={theme.colors.placeholder}>or</OrSpan>
       <UserForm btnContent="아이디로 로그인" mode="로그인" />
-      <Link to="/register">
-        <RegisterSpan color={theme.colors.fitlerText}>회원가입</RegisterSpan>
-      </Link>
+      <RegisterSpan onClick={handleClickRegisterSpan} color={theme.colors.fitlerText}>
+        회원가입
+      </RegisterSpan>
     </LoginContainer>
   );
 }
