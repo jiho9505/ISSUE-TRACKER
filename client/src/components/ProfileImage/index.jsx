@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
+
+import Dropdown from '../Dropdown';
 
 import { allCenterAlign } from '@/static/style/mixin';
+import { useUserImageQuery } from '@/hooks/querys/useUserImage';
 
-/**
- *  TODO:
- *  useQuery를 이용해 이미지 캐싱
- *  로그아웃 시 초기화 고려
- */
-function ProfileImage({ className }) {
+function ProfileImage({ className, onClick = () => {}, items }) {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const ImageSrc = useUserImageQuery();
+
+  const handleClickImg = () => {
+    items.length > 0 && setShowDropdown(!showDropdown);
+  };
+  const handleMouseLeaveDropDown = () => setShowDropdown(false);
+
   return (
     <ProfileImageContainer className={className}>
-      <span>f</span>
+      <img src={ImageSrc} onClick={handleClickImg} alt="유저 이미지" />
+      {showDropdown && (
+        <ProfileDropdown
+          items={items}
+          title="Settings"
+          onClick={onClick}
+          onMouseLeave={handleMouseLeaveDropDown}
+        />
+      )}
     </ProfileImageContainer>
   );
 }
@@ -26,9 +39,17 @@ const ProfileImageContainer = styled.div`
   width: 44px;
   height: 44px;
   cursor: pointer;
+  position: relative;
 
-  span {
-    color: white;
-    font-size: 1.7rem;
+  img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
   }
+`;
+
+const ProfileDropdown = styled(Dropdown)`
+  right: 0px;
+  top: 45px;
+  width: 140px;
 `;
