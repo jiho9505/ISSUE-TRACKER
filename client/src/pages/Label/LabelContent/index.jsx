@@ -3,19 +3,28 @@ import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
 import LabelItem from '../LabelItem';
+import Empty from '@/components/Empty';
 
 import { useLabelLengthQuery } from '@/hooks/querys/useLabelLength';
+import { useLabelQuery } from '@/hooks/querys/useLabel';
 
 function LabelContent() {
   const theme = useTheme();
   const labelLength = useLabelLengthQuery();
+  const labels = useLabelQuery();
+
+  const createLabelItems = () => {
+    return labels?.map((label) => {
+      return <LabelItem key={label._id} label={label} />;
+    });
+  };
 
   return (
     <LabelContentContainer theme={theme}>
       <TitleContainer>
         <Title>{labelLength}개의 레이블</Title>
       </TitleContainer>
-      <LabelItem />
+      {labels?.length === 0 ? <Empty /> : createLabelItems()}
     </LabelContentContainer>
   );
 }
