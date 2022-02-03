@@ -6,7 +6,7 @@ import CustomButton from '@/components/CustomButton';
 
 import { TAG, GUIDE } from '@/static/constants/image-path';
 import { useNavigate } from '@/core/Router';
-import { useLabelLengthQuery } from '@/hooks/querys/useLabelLength';
+import { useLabelLengthQuery } from '@/hooks/querys/useLabel';
 
 function IssueOptionButtons({ choice = '' }) {
   const theme = useTheme();

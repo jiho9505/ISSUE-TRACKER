@@ -1,4 +1,4 @@
-export const processData = (data) => {
+export const processQueryData = (data) => {
   if (data) {
     const isSuccess = data?.data.success;
     const realData = data?.data;

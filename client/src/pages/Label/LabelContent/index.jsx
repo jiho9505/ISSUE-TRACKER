@@ -5,7 +5,7 @@ import { useTheme } from '@emotion/react';
 import LabelItem from '../LabelItem';
 import Empty from '@/components/Empty';
 
-import { useLabelLengthQuery } from '@/hooks/querys/useLabelLength';
+import { useLabelLengthQuery } from '@/hooks/querys/useLabel';
 import { useLabelQuery } from '@/hooks/querys/useLabel';
 
 function LabelContent() {
