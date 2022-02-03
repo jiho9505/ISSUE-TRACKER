@@ -1,20 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
+import { useSetRecoilState } from 'recoil';
 
 import ProfileImage from '../ProfileImage';
 
 import { useNavigate } from '@/core/Router';
+import { api } from '@/api/base';
+import { toastAtom } from '@/store/toastState';
+
+let timer = 0;
+const items = [{ _id: 'logout', name: '로그아웃' }];
+const switchPageTime = 2000;
 
 function Header() {
   const navigateTo = useNavigate();
-  const handleClickTitle = () => {
-    navigateTo('/main');
+  const setToast = useSetRecoilState(toastAtom);
+
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClickTitle = () => navigateTo('/main');
+
+  const handleClickProfile = async (e) => {
+    if (Number(e.currentTarget.dataset.idx) === 0) {
+      const result = await api.get('/users/logout');
+
+      if (result.isSuccess) {
+        setToast({
+          isActive: true,
+          title: '로그아웃이 되었습니다❗️',
+          content: '2초 후 로그인페이지로 이동합니다',
+          mode: 'success',
+        });
+        switchPage();
+      }
+      if (!result.isSuccess) throw new Error(result.message);
+    }
+  };
+
+  const switchPage = () => {
+    timer = setTimeout(() => {
+      navigateTo('/');
+    }, switchPageTime);
   };
 
   return (
     <HeaderContainer>
       <Title onClick={handleClickTitle}>ISSUE TRACKER</Title>
-      <ProfileImage />
+      <ProfileImage onClick={handleClickProfile} items={items} />
     </HeaderContainer>
   );
 }
