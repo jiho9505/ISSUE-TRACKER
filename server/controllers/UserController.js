@@ -22,15 +22,14 @@ const github = async (req, res) => {
         success: true,
       });
   } catch (e) {
-    console.log(e);
     return res.json({ success: false, message: error.COMMON_ERROR });
   }
 };
 
-const getFirstChar = async (req, res) => {
+const getUserImage = async (req, res) => {
   try {
     const _id = req._id;
-    const result = await UserService.getFirstChar(_id);
+    const result = await UserService.getUserImage(_id);
     return res.json({ success: true, result });
   } catch (e) {
     return res.json({ success: false, message: error.COMMON_ERROR });
@@ -78,4 +77,4 @@ const logout = (req, res) => {
   }
 };
 
-export const UserController = { logout, registerUser, github, login, getFirstChar, auth };
+export const UserController = { logout, registerUser, github, login, getUserImage, auth };

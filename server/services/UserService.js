@@ -51,10 +51,10 @@ const getGithubUserAccessToken = async (code) => {
   return token;
 };
 
-const getFirstChar = async (_id) => {
+const getUserImage = async (_id) => {
   const user = await User.findOne({ _id });
-  const userFirstChar = user.id[0];
-  return userFirstChar;
+  const userImage = user.avatar;
+  return userImage;
 };
 
 const login = async (id, password) => {
@@ -68,10 +68,12 @@ const login = async (id, password) => {
   return [accessToken, refreshToken];
 };
 
+const DEFAULT_AVATAR = 'https://issue-tracker-2022.s3.ap-northeast-2.amazonaws.com/imgs/user.png';
+
 const registerUser = async (data) => {
   const userInfo = await User.findOne({ id: data.id });
   if (userInfo) throw new Error(error.CHECK_ID_ERROR);
-  const body = { ...data, name: data.id };
+  const body = { ...data, name: data.id, avatar: DEFAULT_AVATAR };
   const user = new User(body);
   await user.save();
 };
@@ -83,4 +85,4 @@ const logout = async (req, res) => {
   await User.findOneAndUpdate({ _id }, { refreshToken: '' });
 };
 
-export const UserService = { github, logout, registerUser, login, getFirstChar };
+export const UserService = { github, logout, registerUser, login, getUserImage };
