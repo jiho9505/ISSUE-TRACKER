@@ -13,9 +13,11 @@ const CustomButton = ({
   color = 'white',
   opacity = 1,
   className,
+  type = 'button',
 }) => {
   return (
     <Button
+      type={type}
       onSubmit={onSubmit}
       onClick={onClick}
       sizeLevel={sizeLevel}

@@ -39,7 +39,7 @@ function UpdatorForm({ form, setForm, onSubmit, onClick, isNew }) {
             <span>취소</span>
           </CancelButton>
         )}
-        <CompleteButton onSubmit={onSubmit} sizeLevel={1}>
+        <CompleteButton type="submit" onSubmit={onSubmit} sizeLevel={1}>
           <img src={WRITE_WHITE} />
           <span>완료</span>
         </CompleteButton>
