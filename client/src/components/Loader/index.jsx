@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useTheme } from '@emotion/react';
 
 const Loader = () => {
+  const theme = useTheme();
   return (
-    <LoadingContainer>
+    <LoadingContainer theme={theme}>
       <div className="loading"></div>
     </LoadingContainer>
   );
@@ -17,6 +19,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background};
 
   .loading {
     display: inline-block;
