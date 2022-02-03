@@ -13,13 +13,8 @@ function IssueOptionButtons({ choice = '' }) {
   const navigateTo = useNavigate();
   const labelLength = useLabelLengthQuery();
 
-  const handleClickButton = () => {
-    navigateTo('/label');
-  };
-
-  const handleClickMileStoneButton = () => {
-    navigateTo('/milestone');
-  };
+  const handleClickButton = () => navigateTo('/label');
+  const handleClickMileStoneButton = () => navigateTo('/milestone');
 
   return (
     <IssueOptionButtonsContainer>
