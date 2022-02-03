@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
 import { useRecoilState } from 'recoil';
 
-import { toastAtom } from '@/store/atoms';
+import { toastAtom } from '@/store/toastState';
 import ModalPortal from '@/utils/portal';
 
 let timer = 0;

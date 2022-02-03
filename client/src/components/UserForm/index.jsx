@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 
 import CustomButton from '@/components/CustomButton';
 
-import { toastAtom } from '@/store/atoms';
+import { toastAtom } from '@/store/toastState';
 import { allCenterAlign } from '@/static/style/mixin';
 import { useNavigate } from '@/core/Router';
 import { api } from '@/api/base';
@@ -108,7 +108,6 @@ function UserForm({ btnContent, mode }) {
       });
       return;
     }
-
     navigateTo('/main');
   };
 
