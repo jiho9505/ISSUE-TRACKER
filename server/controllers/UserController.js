@@ -32,7 +32,7 @@ const getUserImage = async (req, res) => {
     const result = await UserService.getUserImage(_id);
     return res.json({ success: true, result });
   } catch (e) {
-    return res.json({ success: false, message: error.COMMON_ERROR });
+    return res.json({ success: false, message: error.GET_USER_IMAGE_ERROR });
   }
 };
 
