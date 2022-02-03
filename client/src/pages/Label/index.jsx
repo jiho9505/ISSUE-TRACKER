@@ -11,15 +11,15 @@ import { defaultPageFrame } from '@/static/style/mixin';
 
 function Label() {
   const theme = useTheme();
-  const [isActiveAddBtn, setisActiveAddBtn] = useState(false);
+  const [isActiveAddBtn, setIsActiveAddBtn] = useState(false);
 
-  const handleClickAddBtn = () => setisActiveAddBtn(!isActiveAddBtn);
+  const handleClickAddBtn = () => setIsActiveAddBtn(!isActiveAddBtn);
 
   return (
     <LabelContainer theme={theme}>
       <Header />
       <LabelTop onClick={handleClickAddBtn} isActiveAddBtn={isActiveAddBtn} />
-      {isActiveAddBtn && <NewLabelUpdator isNew={true} />}
+      {isActiveAddBtn && <NewLabelUpdator isNew={true} setActiveBtn={setIsActiveAddBtn} />}
       <LabelContent />
     </LabelContainer>
   );
