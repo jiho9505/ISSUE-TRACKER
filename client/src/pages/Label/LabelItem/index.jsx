@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
+import { useSetRecoilState } from 'recoil';
+import { useMutation, useQueryClient } from 'react-query';
 
 import LabelButton from '@/components/LabelButton';
 import LabelUpdator from '../LabelUpdator';
@@ -8,23 +10,44 @@ import Alert from '@/components/Alert';
 
 import { seroCenterAlign } from '@/static/style/mixin';
 import { TRASH, WRITE } from '@/static/constants/image-path';
+import { DELETE } from '@/api/base';
+import { toastAtom } from '@/store/toastState';
 
 function LabelItem({ label }) {
   const theme = useTheme();
-
   const [isActiveUpdator, setIsActiveUpdator] = useState(false);
   const [isClickDeleteBtn, setIsClickDeleteBtn] = useState(false);
+  const deleteMutation = useMutation(() => DELETE(`/label?id=${label._id}`));
+  const queryClient = useQueryClient();
+  const setToast = useSetRecoilState(toastAtom);
 
   const handleClickUpdateIcon = () => setIsActiveUpdator(!isActiveUpdator);
   const handleClickDeleteIcon = () => setIsClickDeleteBtn(true);
   const handleClickCancelBtn = () => setIsActiveUpdator(false);
 
-  const handleClickAlert = (e) => {
+  const handleClickAlert = async (e) => {
     if (['alert__overlay', 'alert__cancel'].includes(e.target.className))
       setIsClickDeleteBtn(false);
     if (e.target.className === 'alert__delete') {
       setIsClickDeleteBtn(false);
-      // http
+      const result = await deleteMutation.mutateAsync();
+
+      if (!result.data.success) {
+        setToast({
+          isActive: true,
+          title: result.data.message,
+          mode: 'fail',
+        });
+        return;
+      }
+
+      setToast({
+        isActive: true,
+        title: '레이블을 삭제하였습니다.',
+        mode: 'success',
+      });
+
+      queryClient.invalidateQueries('LABEL');
     }
   };
 
