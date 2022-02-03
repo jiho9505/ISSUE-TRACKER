@@ -1,10 +1,14 @@
 import { useQuery } from 'react-query';
-import { GET } from '../api/base';
+import { GET } from '@/api/base';
+import { processData } from './queryCommon';
 
 export const useIssueFilterQuery = () => {
   const { data } = useQuery('ISSUE_FILTER', () => GET('/issue-filter'), {
     refetchOnWindowFocus: false,
-    refetchInterval: Infinity,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
-  return data;
+
+  const result = processData(data);
+  return result;
 };
