@@ -6,7 +6,7 @@ import Dropdown from '../Dropdown';
 import { allCenterAlign } from '@/static/style/mixin';
 import { useUserImageQuery } from '@/hooks/querys/useUserImage';
 
-function ProfileImage({ className, onClick = () => {}, items }) {
+function ProfileImage({ className, onClick = () => {}, items = [] }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const ImageSrc = useUserImageQuery();
 
@@ -16,7 +16,7 @@ function ProfileImage({ className, onClick = () => {}, items }) {
   const handleMouseLeaveDropDown = () => setShowDropdown(false);
 
   return (
-    <ProfileImageContainer className={className}>
+    <ProfileImageContainer className={className} items={items}>
       <img src={ImageSrc} onClick={handleClickImg} alt="유저 이미지" />
       {showDropdown && (
         <ProfileDropdown
@@ -38,7 +38,7 @@ const ProfileImageContainer = styled.div`
   background: black;
   width: 44px;
   height: 44px;
-  cursor: pointer;
+  cursor: ${(props) => (props.items.length > 0 ? 'pointer' : 'default')};
   position: relative;
 
   img {
