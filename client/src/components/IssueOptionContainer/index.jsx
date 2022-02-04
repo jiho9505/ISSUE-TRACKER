@@ -23,6 +23,46 @@ function IssueOptionContainer() {
   const [labelList, setLabelList] = useState([]);
   const [choicedLabelList, setChoicedLabelList] = useState([]);
 
+  useEffect(() => {
+    const choicedUserArr = choicedAssgineeIdxArr.map((idx) => userList[idx]);
+    setAssigneeList(choicedUserArr);
+  }, [choicedAssgineeIdxArr]);
+
+  useEffect(() => {
+    const choicedLabelArr = choicedLabelIdxArr.map((idx) => labelList[idx]);
+    setChoicedLabelList(choicedLabelArr);
+  }, [choicedLabelIdxArr]);
+
+  const handleClickPlusIcon = async (option) => {
+    if (option === '담당자') {
+      setShowAssgineeDropdown(!showAssgineeDropdown);
+      await callUserAPI();
+    } else if (option === '레이블') {
+      setShowLabelDropdown(!showLabelDropdown);
+      await callLabelAPI();
+    }
+  };
+
+  const handleClickAssignee = (choicedIdxArr, idx) => {
+    const newArr = returnNewArr(choicedIdxArr, idx);
+    setChoicedAssgineeIdxArr(newArr);
+  };
+
+  const handleClickLabel = (choicedIdxArr, idx) => {
+    const newArr = returnNewArr(choicedIdxArr, idx);
+    setChoicedLabelIdxArr(newArr);
+  };
+
+  const returnNewArr = (choicedIdxArr, idx) => {
+    if (choicedIdxArr.includes(idx)) {
+      const copyArr = [...choicedIdxArr];
+      const idx = copyArr.findIndex(idx);
+      copyArr.splice(idx, 1);
+      return copyArr;
+    }
+    return [...choicedIdxArr, idx];
+  };
+
   const callUserAPI = async () => {
     const result = await api.get('/users');
     if (result.isSuccess) setUserList(result.data.result);
