@@ -4,11 +4,9 @@ import styled from '@emotion/styled';
 import Dropdown from '../Dropdown';
 
 import { allCenterAlign } from '@/static/style/mixin';
-import { useUserImageQuery } from '@/hooks/querys/useUserImage';
 
-function ProfileImage({ className, onClick = () => {}, items = [] }) {
+function ProfileImage({ className, imageSrc, onClick = () => {}, items = [] }) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const ImageSrc = useUserImageQuery();
 
   const handleClickImg = () => {
     items.length > 0 && setShowDropdown(!showDropdown);
@@ -17,7 +15,7 @@ function ProfileImage({ className, onClick = () => {}, items = [] }) {
 
   return (
     <ProfileImageContainer className={className} items={items}>
-      <img src={ImageSrc} onClick={handleClickImg} alt="유저 이미지" />
+      <img src={imageSrc} onClick={handleClickImg} alt="유저 이미지" />
       {showDropdown && (
         <ProfileDropdown
           items={items}
