@@ -57,6 +57,11 @@ const getUserImage = async (_id) => {
   return userImage;
 };
 
+const getUsers = async () => {
+  const result = await User.find({});
+  return result;
+};
+
 const login = async (id, password) => {
   const user = await User.findOne({ id });
   if (!user) throw new Error(error.INCORRECT_ID_ERROR);
@@ -85,4 +90,4 @@ const logout = async (req, res) => {
   await User.findOneAndUpdate({ _id }, { refreshToken: '' });
 };
 
-export const UserService = { github, logout, registerUser, login, getUserImage };
+export const UserService = { github, getUsers, logout, registerUser, login, getUserImage };

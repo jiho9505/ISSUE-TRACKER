@@ -5,6 +5,7 @@ export const error = {
   CHECK_ID_ERROR: '중복된 ID가 존재합니다.',
   LOGOUT_ERROR: '로그아웃에 실패하였습니다.',
   COMMON_ERROR: '처리 과정 중 에러가 발생했습니다',
+  GET_USERS_ERROR: '유저 목록을 가져오는데 실패하였습니다.',
   GET_USER_IMAGE_ERROR: '유저 이미지를 가져오는데 실패하였습니다.',
   GET_LABEL_ERROR: '레이블 정보를 가져오는데 실패하였습니다.',
   GET_LABEL_LENGTH_ERROR: '레이블 개수를 가져오는데 실패하였습니다.',

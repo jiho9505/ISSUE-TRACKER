@@ -36,6 +36,15 @@ const getUserImage = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const result = await UserService.getUsers();
+    return res.json({ success: true, result });
+  } catch (e) {
+    return res.json({ success: false, message: error.GET_USERS_ERROR });
+  }
+};
+
 const login = async (req, res) => {
   try {
     const { id, password } = req.body;
@@ -77,4 +86,4 @@ const logout = (req, res) => {
   }
 };
 
-export const UserController = { logout, registerUser, github, login, getUserImage, auth };
+export const UserController = { logout, getUsers, registerUser, github, login, getUserImage, auth };
