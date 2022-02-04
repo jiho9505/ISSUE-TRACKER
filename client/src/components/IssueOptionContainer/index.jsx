@@ -23,6 +23,18 @@ function IssueOptionContainer() {
   const [labelList, setLabelList] = useState([]);
   const [choicedLabelList, setChoicedLabelList] = useState([]);
 
+  const callUserAPI = async () => {
+    const result = await api.get('/users');
+    if (result.isSuccess) setUserList(result.data.result);
+    if (!result.isSuccess) throw new Error(result.message);
+  };
+
+  const callLabelAPI = async () => {
+    const result = await api.get('/label');
+    if (result.isSuccess) setLabelList(result.data.result);
+    if (!result.isSuccess) throw new Error(result.message);
+  };
+
   const createDropdown = (option) => {
     if (option === '담당자' && showAssgineeDropdown) {
       return (
