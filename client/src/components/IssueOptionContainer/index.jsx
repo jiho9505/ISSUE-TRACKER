@@ -59,8 +59,8 @@ function IssueOptionContainer() {
   const returnNewArr = (choicedIdxArr, idx) => {
     if (choicedIdxArr.includes(idx)) {
       const copyArr = [...choicedIdxArr];
-      const idx = copyArr.findIndex(idx);
-      copyArr.splice(idx, 1);
+      const idxToRemove = copyArr.findIndex((ele) => ele === idx);
+      copyArr.splice(idxToRemove, 1);
       return copyArr;
     }
     return [...choicedIdxArr, idx];
@@ -117,7 +117,7 @@ function IssueOptionContainer() {
     return labelList.map((item, idx) => (
       <Item key={item._id} onClick={() => handleClickLabel(choicedLabelIdxArr, idx)}>
         <LabelButton info={item} />
-        {createCircleImg(choicedAssgineeIdxArr, idx)}
+        {createCircleImg(choicedLabelIdxArr, idx)}
       </Item>
     ));
   };
