@@ -13,3 +13,12 @@
 input[type='password'] {
   font-family: '굴림';
 }
+
+input[type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
