@@ -58,6 +58,7 @@ const createMainContent = () => {
         </Switch>
       </Router>
       <Message />
+      <Footer />
     </PageContainer>
   );
 };
@@ -69,4 +70,8 @@ const PageContainer = styled.div`
   height: 100vh;
   background-color: ${(props) => props.theme.colors.background};
   margin: 0 auto;
+`;
+
+const Footer = styled.footer`
+  height: 300px;
 `;
