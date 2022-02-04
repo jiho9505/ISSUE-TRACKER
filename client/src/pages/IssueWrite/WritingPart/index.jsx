@@ -4,20 +4,20 @@ import { useTheme } from '@emotion/react';
 
 import WritingComment from '@/components/WritingComment';
 
-function WritingPart({ form, setForm }) {
+function WritingPart({ refreshForm }) {
   const theme = useTheme();
   const [title, setTitle] = useState('');
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
-    setForm(e.target.value);
+    refreshForm({ title: e.target.value });
   };
 
   return (
     <WritingPartContainer theme={theme}>
       {title && <TitleLabel>제목</TitleLabel>}
       <IssueTitle value={title} onChange={handleChangeTitle} placeholder="제목" />
-      <WritingComment description={form?.description} setForm={setForm} />
+      <WritingComment refreshForm={refreshForm} />
     </WritingPartContainer>
   );
 }
@@ -26,6 +26,9 @@ export default WritingPart;
 
 const WritingPartContainer = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const TitleLabel = styled.label`
