@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import ProfileImage from '@/components/ProfileImage';
@@ -13,9 +13,18 @@ function PageMain() {
     description: '',
     images: [],
   });
+  const [isFilledForm, setisFilledForm] = useState(false);
+
+  useEffect(() => {
+    if (form.title.length > 0 && form.description.length > 0) {
+      setisFilledForm(true);
+      return;
+    }
+    setisFilledForm(false);
+  }, [form]);
 
   const refreshForm = (newState) => {
-    setForm({ ...newState, form });
+    setForm({ ...form, ...newState });
   };
   return (
     <PageMainContainer>
@@ -26,7 +35,7 @@ function PageMain() {
       </ContentContainer>
 
       <GreyLine />
-      <ButtonContainer />
+      <ButtonContainer isFilledForm={isFilledForm} />
     </PageMainContainer>
   );
 }
@@ -37,5 +46,5 @@ const PageMainContainer = styled.div``;
 
 const ContentContainer = styled.div`
   display: flex;
-  gap: 30px;
+  gap: 20px;
 `;

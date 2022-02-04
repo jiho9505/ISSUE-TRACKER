@@ -6,7 +6,7 @@ import { CLIP } from '@/static/constants/image-path';
 function AddingFile() {
   return (
     <AddingFileContainer>
-      <label for="file-id">
+      <label htmlFor="file-id">
         <img src={CLIP} alt="파일 첨부" />
         <span>파일 첨부하기 </span>
       </label>

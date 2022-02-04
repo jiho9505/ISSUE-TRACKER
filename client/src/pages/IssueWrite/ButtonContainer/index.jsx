@@ -6,16 +6,22 @@ import CustomButton from '@/components/CustomButton';
 
 import { CANCEL } from '@/static/constants/image-path';
 
-function ButtonContainer() {
+function ButtonContainer({ isFilledForm }) {
   const theme = useTheme();
 
-  return (
-    <Wrapper>
+  const createCancelBtn = () => {
+    return isFilledForm ? (
       <CancelButton sizeLevel={1} theme={theme}>
         <img src={CANCEL} alt="작성 취소" />
         <span>작성 취소</span>
       </CancelButton>
-      <CustomButton sizeLevel={2} bgColor={theme.colors.blue}>
+    ) : null;
+  };
+
+  return (
+    <Wrapper>
+      {createCancelBtn()}
+      <CustomButton opacity={isFilledForm ? '1' : '0.5'} sizeLevel={2} bgColor={theme.colors.blue}>
         완료
       </CustomButton>
     </Wrapper>

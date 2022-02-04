@@ -8,6 +8,7 @@ const ISSUE_OPTIONS = ['담당자', '레이블', '마일스톤'];
 
 function IssueOptionContainer() {
   const theme = useTheme();
+
   return (
     <Wrapper theme={theme}>
       {ISSUE_OPTIONS.map((option, idx) => (
@@ -42,5 +43,9 @@ const IssueOptionItem = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   &:last-child {
     border-bottom: none;
+  }
+
+  img {
+    cursor: pointer;
   }
 `;
