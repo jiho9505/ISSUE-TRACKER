@@ -53,6 +53,9 @@ function IssueOptionContainer() {
     setChoicedLabelIdxArr(newArr);
   };
 
+  const handleMouseLeaveAssigneeDropdown = () => setShowAssgineeDropdown(false);
+  const handleMouseLeaveLabelDropdown = () => setShowLabelDropdown(false);
+
   const returnNewArr = (choicedIdxArr, idx) => {
     if (choicedIdxArr.includes(idx)) {
       const copyArr = [...choicedIdxArr];
