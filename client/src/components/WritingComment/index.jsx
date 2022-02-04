@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
+import AddingFile from '@/components/AddingFile';
+
 function WritingComment({ refreshForm }) {
   const theme = useTheme();
   const [description, setDescription] = useState('');
@@ -26,7 +28,7 @@ function WritingComment({ refreshForm }) {
         isFocus={isFocus}
       />
       {description && <TextLength>띄어쓰기 포함 {description.length}자</TextLength>}
-      {/* <AddingFile /> */}
+      <AddingFile />
     </WritingCommentContainer>
   );
 }
@@ -70,7 +72,7 @@ const TextArea = styled.textarea`
 const TextLength = styled.span`
   position: absolute;
   right: 20px;
-  bottom: 25px;
+  top: 300px;
   font-weight: 500;
   font-size: 12px;
   line-height: 20px;
