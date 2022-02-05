@@ -1,5 +1,5 @@
 <h2 align='center' style='font-family: Montserrat;
-  font-style: italic;'>ISSUE TRACKER</h2>
+  font-style: italic; font-size: 2rem'>ISSUE TRACKER</h2>
 
 ![bg3](https://user-images.githubusercontent.com/50862052/152633093-9de97626-fe6d-456c-a820-2c53ee53de5a.jpg)
 
