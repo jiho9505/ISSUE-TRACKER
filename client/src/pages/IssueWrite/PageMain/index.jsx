@@ -106,12 +106,14 @@ function PageMain() {
       </ContentContainer>
 
       <GreyLine />
+
       <ButtonContainer isFilledForm={isFilledForm}>
         <CustomButton
           opacity={isFilledForm ? '1' : '0.5'}
           sizeLevel={2}
           bgColor={theme.colors.blue}
           onSubmit={handleSubmitForm}
+          type="submit"
         >
           완료
         </CustomButton>

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 function LabelButton({ info }) {
   return (
-    <Button bgColor={info.bgColor} textColor={info.textColor}>
+    <Button type="button" bgColor={info.bgColor} textColor={info.textColor}>
       {info.name}
     </Button>
   );
