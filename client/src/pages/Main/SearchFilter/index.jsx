@@ -5,8 +5,9 @@ import { useTheme } from '@emotion/react';
 import CustomButton from '@/components/CustomButton';
 import Dropdown from '@/components/Dropdown';
 
-import { FILTER, SEARCH } from '@/static/constants/image-path';
+import { FILTER, SEARCH, CHECKED_CIRCLE, CIRCLE } from '@/static/constants/image-path';
 import { useIssueFilterQuery } from '@/hooks/querys/useIssueFilter';
+import { seroCenterAlign } from '@/static/style/mixin';
 
 function SearchFilter() {
   const theme = useTheme();
@@ -18,8 +19,7 @@ function SearchFilter() {
   const handleClickFilterButton = () => setShowFilterList(!showFilterList);
   const handleMouseLeaveDropDown = () => setShowFilterList(false);
 
-  const handleClickDropDown = (e) => {
-    const idx = Number(e.currentTarget.dataset.idx);
+  const handleClickDropDown = (idx) => {
     const choicedFilter = filterItems[idx];
     if (choicedIdx === idx) {
       setchoicedIdx(-1);
@@ -28,6 +28,19 @@ function SearchFilter() {
     }
     setchoicedIdx(idx);
     setFilterPlaceHolder(choicedFilter.form);
+  };
+
+  const createCircleImg = (choicedIdx, idx) => {
+    return choicedIdx === idx ? <img src={CHECKED_CIRCLE} /> : <img src={CIRCLE} />;
+  };
+
+  const createFilters = () => {
+    return filterItems?.map((item, idx) => (
+      <Item key={item._id} onClick={() => handleClickDropDown(idx)}>
+        <span>{item.name}</span>
+        {createCircleImg(choicedIdx, idx)}
+      </Item>
+    ));
   };
 
   return (
@@ -44,13 +57,9 @@ function SearchFilter() {
       <SearchFilterInput disabled theme={theme} type="text" placeholder={filterPlaceHolder} />
       <SearchIcon src={SEARCH} alt="검색 아이콘" />
       {showFilterList && (
-        <FilterDropdown
-          onMouseLeave={handleMouseLeaveDropDown}
-          onClick={handleClickDropDown}
-          title="이슈 필터"
-          items={filterItems}
-          choicedIdx={choicedIdx}
-        />
+        <FilterDropdown onMouseLeave={handleMouseLeaveDropDown} title="이슈 필터">
+          {createFilters()}
+        </FilterDropdown>
       )}
     </SearchFilterContainer>
   );
@@ -98,4 +107,15 @@ const SearchIcon = styled.img`
 const FilterDropdown = styled(Dropdown)`
   left: 0px;
   top: 50px;
+`;
+
+const Item = styled.div`
+  ${seroCenterAlign}
+  justify-content: space-between;
+  background-color: white;
+  padding: 8px 16px;
+  color: ${(props) => props.theme.colors.text};
+  height: 48px;
+  border-top: 1px solid ${(props) => props.theme.colors.border};
+  cursor: pointer;
 `;

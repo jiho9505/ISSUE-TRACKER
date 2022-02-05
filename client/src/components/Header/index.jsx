@@ -24,8 +24,8 @@ function Header() {
 
   const handleClickTitle = () => navigateTo('/main');
 
-  const handleClickProfile = async (e) => {
-    if (Number(e.currentTarget.dataset.idx) === 0) {
+  const handleClickProfile = async (idx) => {
+    if (idx === 0) {
       const result = await api.get('/users/logout');
 
       if (result.isSuccess) {

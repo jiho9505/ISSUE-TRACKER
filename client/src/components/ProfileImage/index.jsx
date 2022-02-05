@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import Dropdown from '../Dropdown';
 
-import { allCenterAlign } from '@/static/style/mixin';
+import { allCenterAlign, seroCenterAlign } from '@/static/style/mixin';
 
 function ProfileImage({ className, imageSrc, onClick = () => {}, items = [] }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -13,16 +13,22 @@ function ProfileImage({ className, imageSrc, onClick = () => {}, items = [] }) {
   };
   const handleMouseLeaveDropDown = () => setShowDropdown(false);
 
+  const createDropdownMenu = () => {
+    return items?.map((item, idx) => (
+      <Item key={item._id} onClick={() => onClick(idx)}>
+        <span>{item.name}</span>
+      </Item>
+    ));
+  };
+
   return (
     <ProfileImageContainer className={className} items={items}>
       <img src={imageSrc} onClick={handleClickImg} alt="유저 이미지" />
       {showDropdown && (
-        <ProfileDropdown
-          items={items}
-          title="Settings"
-          onClick={onClick}
-          onMouseLeave={handleMouseLeaveDropDown}
-        />
+        <ProfileDropdown title="Settings" onMouseLeave={handleMouseLeaveDropDown}>
+          {' '}
+          {createDropdownMenu()}
+        </ProfileDropdown>
       )}
     </ProfileImageContainer>
   );
@@ -50,4 +56,15 @@ const ProfileDropdown = styled(Dropdown)`
   right: 0px;
   top: 45px;
   width: 140px;
+`;
+
+const Item = styled.div`
+  ${seroCenterAlign}
+  justify-content: space-between;
+  background-color: white;
+  padding: 8px 16px;
+  color: ${(props) => props.theme.colors.text};
+  height: 48px;
+  border-top: 1px solid ${(props) => props.theme.colors.border};
+  cursor: pointer;
 `;
