@@ -6,13 +6,13 @@ import WritingComment from '@/components/WritingComment';
 
 const TITLE_MAX_LENGTH = '30';
 
-function WritingPart({ refreshForm }) {
+function WritingPart({ refreshState }) {
   const theme = useTheme();
   const [title, setTitle] = useState('');
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
-    refreshForm({ title: e.target.value });
+    refreshState('TITLE', e.target.value);
   };
 
   return (
@@ -25,7 +25,7 @@ function WritingPart({ refreshForm }) {
         required
         maxLength={TITLE_MAX_LENGTH}
       />
-      <WritingComment refreshForm={refreshForm} />
+      <WritingComment refreshState={refreshState} />
     </WritingPartContainer>
   );
 }

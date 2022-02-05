@@ -7,6 +7,7 @@ import ProfileImage from '../ProfileImage';
 import { useNavigate } from '@/core/Router';
 import { api } from '@/api/base';
 import { toastAtom } from '@/store/toastState';
+import { useUserImageQuery } from '@/hooks/querys/useUser';
 
 let timer = 0;
 const items = [{ _id: 'logout', name: '로그아웃' }];
@@ -15,6 +16,7 @@ const switchPageTime = 2000;
 function Header() {
   const navigateTo = useNavigate();
   const setToast = useSetRecoilState(toastAtom);
+  const imageSrc = useUserImageQuery();
 
   useEffect(() => {
     return () => clearTimeout(timer);
@@ -48,7 +50,7 @@ function Header() {
   return (
     <HeaderContainer>
       <Title onClick={handleClickTitle}>ISSUE TRACKER</Title>
-      <ProfileImage onClick={handleClickProfile} items={items} />
+      <ProfileImage onClick={handleClickProfile} imageSrc={imageSrc} items={items} />
     </HeaderContainer>
   );
 }

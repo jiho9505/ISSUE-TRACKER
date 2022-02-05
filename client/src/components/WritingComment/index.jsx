@@ -6,13 +6,13 @@ import AddingFile from '@/components/AddingFile';
 
 const COMMENT_MAX_LENGTH = 10000;
 
-function WritingComment({ refreshForm }) {
+function WritingComment({ refreshState }) {
   const theme = useTheme();
   const [description, setDescription] = useState('');
   const [isFocus, setIsFocus] = useState(false);
   const handleChangeTextArea = (e) => {
     setDescription(e.target.value);
-    refreshForm({ description: e.target.value });
+    refreshState('COMMENT', { content: e.target.value });
   };
 
   const handleFocusTextArea = () => setIsFocus(true);

@@ -12,7 +12,7 @@ import { CHECKED_CIRCLE, CIRCLE, PLUS } from '@/static/constants/image-path';
 
 const ISSUE_OPTIONS_ARRAY = ['담당자', '레이블', '마일스톤'];
 
-function IssueOptionContainer() {
+function IssueOptionContainer({ refreshState }) {
   const theme = useTheme();
   const [showAssgineeDropdown, setShowAssgineeDropdown] = useState(false);
   const [showLabelDropdown, setShowLabelDropdown] = useState(false);
@@ -24,13 +24,19 @@ function IssueOptionContainer() {
   const [choicedLabelList, setChoicedLabelList] = useState([]);
 
   useEffect(() => {
-    const choicedUserArr = choicedAssgineeIdxArr.map((idx) => userList[idx]);
-    setAssigneeList(choicedUserArr);
+    if (refreshState) {
+      const choicedUserArr = choicedAssgineeIdxArr.map((idx) => userList[idx]);
+      setAssigneeList(choicedUserArr);
+      refreshState('ASSIGNEE', choicedUserArr);
+    }
   }, [choicedAssgineeIdxArr]);
 
   useEffect(() => {
-    const choicedLabelArr = choicedLabelIdxArr.map((idx) => labelList[idx]);
-    setChoicedLabelList(choicedLabelArr);
+    if (refreshState) {
+      const choicedLabelArr = choicedLabelIdxArr.map((idx) => labelList[idx]);
+      setChoicedLabelList(choicedLabelArr);
+      refreshState('LABEL', choicedLabelArr);
+    }
   }, [choicedLabelIdxArr]);
 
   const handleClickPlusIcon = async (option) => {
@@ -128,7 +134,7 @@ function IssueOptionContainer() {
         return (
           <ChoicedItem key={assignee._id}>
             <ProfileImage imageSrc={assignee.avatar} />
-            <span>{assignee.name}</span>
+            <AssigneeName>{assignee.name}</AssigneeName>
           </ChoicedItem>
         );
       });
@@ -199,6 +205,10 @@ const IssueOptionTitle = styled.div`
 const ChoicedItem = styled.div`
   ${seroCenterAlign}
   gap:10px;
+`;
+
+const AssigneeName = styled.span`
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const OptionName = styled.span`
