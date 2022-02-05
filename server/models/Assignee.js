@@ -10,9 +10,9 @@ const assigneeSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    boardId: {
+    issueId: {
       type: Schema.Types.ObjectId,
-      ref: 'Board',
+      ref: 'Issue',
       required: true,
     },
   },

@@ -5,19 +5,23 @@ const model = mongoose.model;
 
 const commentSchema = new Schema(
   {
-    userId: {
+    writer: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-    boardId: {
+    issueId: {
       type: Schema.Types.ObjectId,
-      ref: 'Board',
+      ref: 'Issue',
       required: true,
     },
     content: {
       type: String,
       required: true,
+    },
+    images: {
+      type: Array,
+      default: [],
     },
   },
   { timestamps: true }

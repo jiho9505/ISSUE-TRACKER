@@ -3,22 +3,22 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-const boardLabelSchema = new Schema(
+const issueLabelSchema = new Schema(
   {
     labelId: {
       type: Schema.Types.ObjectId,
       ref: 'Label',
       required: true,
     },
-    boardId: {
+    issueId: {
       type: Schema.Types.ObjectId,
-      ref: 'Board',
+      ref: 'Issue',
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const BoardLabel = model('BoardLabel', boardLabelSchema);
+const IssueLabel = model('IssueLabel', issueLabelSchema);
 
-export { BoardLabel };
+export { IssueLabel };
