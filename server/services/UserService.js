@@ -58,7 +58,8 @@ const getUserImage = async (_id) => {
 };
 
 const getUsers = async () => {
-  const result = await User.find({});
+  const users = await User.find({});
+  const result = users.map((user) => ({ _id: user._id, name: user.name, avatar: user.avatar }));
   return result;
 };
 
