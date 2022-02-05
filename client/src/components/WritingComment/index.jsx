@@ -4,6 +4,8 @@ import { useTheme } from '@emotion/react';
 
 import AddingFile from '@/components/AddingFile';
 
+const COMMENT_MAX_LENGTH = 10000;
+
 function WritingComment({ refreshForm }) {
   const theme = useTheme();
   const [description, setDescription] = useState('');
@@ -26,6 +28,8 @@ function WritingComment({ refreshForm }) {
         onBlur={handleBlurTextArea}
         value={description}
         isFocus={isFocus}
+        required
+        maxLength={COMMENT_MAX_LENGTH}
       />
       {description && <TextLength>띄어쓰기 포함 {description.length}자</TextLength>}
       <AddingFile />

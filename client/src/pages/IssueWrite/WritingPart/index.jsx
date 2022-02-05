@@ -4,6 +4,8 @@ import { useTheme } from '@emotion/react';
 
 import WritingComment from '@/components/WritingComment';
 
+const TITLE_MAX_LENGTH = '30';
+
 function WritingPart({ refreshForm }) {
   const theme = useTheme();
   const [title, setTitle] = useState('');
@@ -16,7 +18,13 @@ function WritingPart({ refreshForm }) {
   return (
     <WritingPartContainer theme={theme}>
       {title && <TitleLabel>제목</TitleLabel>}
-      <IssueTitle value={title} onChange={handleChangeTitle} placeholder="제목" />
+      <IssueTitle
+        value={title}
+        onChange={handleChangeTitle}
+        placeholder="제목"
+        required
+        maxLength={TITLE_MAX_LENGTH}
+      />
       <WritingComment refreshForm={refreshForm} />
     </WritingPartContainer>
   );
