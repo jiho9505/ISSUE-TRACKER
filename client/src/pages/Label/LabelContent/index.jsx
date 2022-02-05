@@ -4,6 +4,7 @@ import { useTheme } from '@emotion/react';
 
 import LabelItem from '../LabelItem';
 import Empty from '@/components/Empty';
+import Loader from '@/components/Loader';
 
 import { useLabelLengthQuery } from '@/hooks/querys/useLabel';
 import { useLabelQuery } from '@/hooks/querys/useLabel';
@@ -11,7 +12,7 @@ import { useLabelQuery } from '@/hooks/querys/useLabel';
 function LabelContent() {
   const theme = useTheme();
   const labelLength = useLabelLengthQuery();
-  const labels = useLabelQuery();
+  const [labels, isLoading] = useLabelQuery();
 
   const createLabelItems = () => {
     return labels?.map((label) => {
@@ -19,6 +20,7 @@ function LabelContent() {
     });
   };
 
+  if (isLoading) return <Loader />;
   return (
     <LabelContentContainer theme={theme}>
       <TitleContainer>
