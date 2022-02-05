@@ -8,6 +8,7 @@ import { REFRESH, CHECKED_CIRCLE, CIRCLE } from '@/static/constants/image-path';
 import { getRandomColor } from '@/utils/helper';
 import { seroCenterAlign } from '@/static/style/mixin';
 import { CANCEL_BLUE, WRITE_WHITE } from '@/static/constants/image-path';
+import { preventXSS } from '@/utils/helper';
 
 const nameMaxLength = 16;
 const descMaxLength = 30;
@@ -18,7 +19,10 @@ function UpdatorForm({ form, setForm, onSubmit, onClick, isNew }) {
   const handleClickRefreshIcon = () => setForm({ ...form, bgColor: getRandomColor() });
   const handleClickDarkColorBtn = () => setForm({ ...form, textColor: 'black' });
   const handleClickLightColorBtn = () => setForm({ ...form, textColor: 'white' });
-  const handleChangeName = (e) => setForm({ ...form, name: e.currentTarget.value });
+  const handleChangeName = (e) => {
+    const newName = preventXSS(e.currentTarget.value);
+    setForm({ ...form, name: newName });
+  };
   const handleChangeDescription = (e) => setForm({ ...form, description: e.currentTarget.value });
   const createCheckedCircleIcon = (mode) => {
     if (mode === 'dark') {

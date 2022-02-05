@@ -9,3 +9,8 @@ export const getRandomColor = () => {
   const result = '#' + hexCode.padStart(6, '0');
   return result.toLocaleUpperCase();
 };
+
+export const preventXSS = (text) => {
+  const filterText = text.replace(/[<>]/g, '');
+  return filterText;
+};

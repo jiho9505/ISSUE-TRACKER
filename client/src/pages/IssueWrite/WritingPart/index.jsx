@@ -4,6 +4,8 @@ import { useTheme } from '@emotion/react';
 
 import WritingComment from '@/components/WritingComment';
 
+import { preventXSS } from '@/utils/helper';
+
 const TITLE_MAX_LENGTH = '30';
 
 function WritingPart({ refreshState }) {
@@ -11,7 +13,8 @@ function WritingPart({ refreshState }) {
   const [title, setTitle] = useState('');
 
   const handleChangeTitle = (e) => {
-    setTitle(e.target.value);
+    const newTitle = preventXSS(e.target.value);
+    setTitle(newTitle);
     refreshState('TITLE', e.target.value);
   };
 
