@@ -1,5 +1,5 @@
 import { Label } from '../models/Label.js';
-import { BoardLabel } from '../models/BoardLabel.js';
+import { IssueLabel } from '../models/IssueLabel.js';
 import { error } from '../errors/index.js';
 
 const getLabels = async () => {
@@ -24,7 +24,7 @@ const updateLabel = async (_id, data) => {
 };
 
 const deleteLabel = async (_id) => {
-  await Promise.all([Label.findOneAndDelete({ _id }), BoardLabel.deleteMany({ labelId: _id })]);
+  await Promise.all([Label.findOneAndDelete({ _id }), IssueLabel.deleteMany({ labelId: _id })]);
 };
 
 export const LabelService = { getLabels, getLength, createLabel, updateLabel, deleteLabel };
