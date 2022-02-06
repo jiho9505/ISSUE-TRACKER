@@ -116,7 +116,8 @@ const getIssues = async (status, filter, writer, page) => {
       break;
   }
 
-  return result;
+  const sortedResult = result.sort((a, b) => b.issue.createdAt - a.issue.createdAt);
+  return sortedResult;
 };
 
 /**
