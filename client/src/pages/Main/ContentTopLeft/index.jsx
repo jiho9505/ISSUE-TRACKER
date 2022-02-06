@@ -19,13 +19,13 @@ function ContentTopLeft() {
   const handleClickOpenIssue = () => {
     if (!isIssueOpenStatus) {
       setIsIssueOpenStatus(true);
-      setParamGetIssue({ ...paramGetIssue, status: 'open' });
+      setParamGetIssue({ ...paramGetIssue, status: 'open', page: 1 });
     }
   };
   const handleClickClosedIssue = () => {
     if (isIssueOpenStatus) {
       setIsIssueOpenStatus(false);
-      setParamGetIssue({ ...paramGetIssue, status: 'close' });
+      setParamGetIssue({ ...paramGetIssue, status: 'close', page: 1 });
     }
   };
 

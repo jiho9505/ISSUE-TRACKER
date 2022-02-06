@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 
 import Header from '@/components/Header';
 import MainTop from './MainTop';
+import MainContent from './MainContent';
+import IssuePagination from './IssuePagination';
 
 import { defaultPageFrame } from '@/static/style/mixin';
-import MainContent from './MainContent';
 
 function Main() {
   return (
@@ -13,6 +14,7 @@ function Main() {
       <Header />
       <MainTop />
       <MainContent />
+      <IssuePagination />
     </MainContainer>
   );
 }

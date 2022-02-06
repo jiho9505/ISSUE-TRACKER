@@ -27,12 +27,12 @@ function SearchFilter() {
     if (choicedIdx === idx) {
       setchoicedIdx(-1);
       setFilterPlaceHolder('no filter');
-      setParamGetIssue({ ...paramGetIssue, filter: -1 });
+      setParamGetIssue({ ...paramGetIssue, filter: -1, page: 1 });
       return;
     }
     setchoicedIdx(idx);
     setFilterPlaceHolder(choicedFilter.form);
-    setParamGetIssue({ ...paramGetIssue, filter: idx });
+    setParamGetIssue({ ...paramGetIssue, filter: idx, page: 1 });
   };
 
   const createCircleImg = (choicedIdx, idx) => {
