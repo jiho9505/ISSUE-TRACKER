@@ -14,3 +14,23 @@ export const preventXSS = (text) => {
   const filterText = text.replace(/[<>]/g, '');
   return filterText;
 };
+
+export const getTimeMadeIssue = (issueTime) => {
+  const secDiff = (new Date().getTime() - new Date(issueTime).getTime()) / 1000;
+
+  if (secDiff < 60) {
+    return `${secDiff}초 전`;
+  } else if (secDiff < 60 * 60) {
+    const minDiff = Math.floor(secDiff / 60);
+    return `${minDiff}분 전`;
+  } else if (secDiff < 60 * 60 * 24) {
+    const hourDiff = Math.floor(secDiff / (60 * 60));
+    return `${hourDiff}시간 전`;
+  } else {
+    const timeMadeIssue = new Date(issueTime);
+    const yearMadeIssue = timeMadeIssue.getFullYear();
+    const monthMadeIssue = timeMadeIssue.getMonth() + 1;
+    const dateMadeIssue = timeMadeIssue.getDate();
+    return `${yearMadeIssue}년 ${monthMadeIssue}월 ${dateMadeIssue}일`;
+  }
+};
