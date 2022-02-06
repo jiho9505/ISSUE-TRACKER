@@ -10,7 +10,7 @@ export const useIssueQuery = (paramGetIssue) => {
   const page = paramGetIssue.page;
 
   const { data, isLoading } = useQuery(
-    'ISSUE',
+    ['ISSUE', paramGetIssue],
     () => GET(`/issue?status=${status}&filter=${filter}&page=${page}`),
     {
       refetchInterval: ISSUE_REFETCH,
@@ -22,9 +22,13 @@ export const useIssueQuery = (paramGetIssue) => {
 
 export const useIssueLengthQuery = (paramGetIssue) => {
   const filter = paramGetIssue.filter;
-  const { data } = useQuery(['ISSUE', 'LENGTH'], () => GET(`/issue/length?filter=${filter}`), {
-    refetchInterval: ISSUE_REFETCH,
-  });
+  const { data } = useQuery(
+    ['ISSUE', 'LENGTH', filter],
+    () => GET(`/issue/length?filter=${filter}`),
+    {
+      refetchInterval: ISSUE_REFETCH,
+    }
+  );
   const result = processQueryData(data);
   return result ? result : 0;
 };
