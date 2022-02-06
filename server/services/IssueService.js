@@ -124,7 +124,7 @@ const getIssues = async (status, filter, writer, page) => {
  */
 const getIssueLength = async (filter, writer) => {
   const isOpenBody = { isOpen: true };
-  const result = [];
+  let result = {};
 
   switch (filter) {
     case '0':
@@ -133,10 +133,10 @@ const getIssueLength = async (filter, writer) => {
         Issue.find({ writer, ...isOpenBody }),
       ]);
       const closeIssuesAuthorMeLength = totalIssuesAuthorMe.length - openIssuesAuthorMe.length;
-      result.push({
+      result = {
         openIssueLength: openIssuesAuthorMe.length,
         closeIssueLength: closeIssuesAuthorMeLength,
-      });
+      };
       break;
     case '1':
       const assigneeArr = await Assignee.find({ userId: writer }).populate('issueId');
@@ -146,10 +146,10 @@ const getIssueLength = async (filter, writer) => {
       });
       const totalIssuesAssigneeMeLength = assigneeArr.length;
       const closeIssuesAssigneeMeLength = totalIssuesAssigneeMeLength - openIssuesAssigneeMeLength;
-      result.push({
+      result = {
         openIssueLength: openIssuesAssigneeMeLength,
         closeIssueLength: closeIssuesAssigneeMeLength,
-      });
+      };
       break;
     case '2':
       const issueIdArr = await Comment.find({ writer }).distinct('issueId');
@@ -164,19 +164,19 @@ const getIssueLength = async (filter, writer) => {
 
       const totalIssuesCommentMeLength = issueIdArr.length;
       const closeIssuesCommentMeLength = totalIssuesCommentMeLength - openIssuesCommentMeLength;
-      result.push({
+      result = {
         openIssueLength: openIssuesCommentMeLength,
         closeIssueLength: closeIssuesCommentMeLength,
-      });
+      };
 
       break;
     default:
       const [issues, openIssues] = await Promise.all([Issue.find({}), Issue.find(isOpenBody)]);
       const closeIssueLength = issues.length - openIssues.length;
-      result.push({
+      result = {
         openIssueLength: openIssues.length,
         closeIssueLength,
-      });
+      };
       break;
   }
 
