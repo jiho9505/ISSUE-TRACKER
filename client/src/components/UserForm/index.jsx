@@ -180,6 +180,7 @@ function UserForm({ btnContent, mode }) {
         sizeLevel={3}
         bgColor={theme.colors.blue}
         onSubmit={handleSubmitForm}
+        type="submit"
       >
         {btnContent}
       </CustomButton>

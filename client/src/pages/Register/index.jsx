@@ -35,4 +35,5 @@ const Title = styled.h2`
   font-size: 56px;
   line-height: 72px;
   letter-spacing: -0.04em;
+  cursor: pointer;
 `;

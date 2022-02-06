@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
+import { useRecoilState } from 'recoil';
 
 import { EXCLAMATION_MARK, BOX } from '@/static/constants/image-path';
 import { seroCenterAlign } from '@/static/style/mixin';
+import { useIssueLengthQuery } from '@/hooks/querys/useIssue';
+import { paramGetIssueAtom } from '@/store/getIssueParamState';
 
 function ContentTopLeft() {
   const theme = useTheme();
   const [isIssueOpenStatus, setIsIssueOpenStatus] = useState(true);
+  const [paramGetIssue, setParamGetIssue] = useRecoilState(paramGetIssueAtom);
+  const issueLength = useIssueLengthQuery(paramGetIssue);
+  const openIssueLength = issueLength ? issueLength.openIssueLength : 0;
+  const closeIssueLength = issueLength ? issueLength.closeIssueLength : 0;
 
-  const handleClickOpenIssue = () => setIsIssueOpenStatus(true);
-  const handleClickClosedIssue = () => setIsIssueOpenStatus(false);
+  const handleClickOpenIssue = () => {
+    if (!isIssueOpenStatus) {
+      setIsIssueOpenStatus(true);
+      setParamGetIssue({ ...paramGetIssue, status: 'open' });
+    }
+  };
+  const handleClickClosedIssue = () => {
+    if (isIssueOpenStatus) {
+      setIsIssueOpenStatus(false);
+      setParamGetIssue({ ...paramGetIssue, status: 'close' });
+    }
+  };
 
   return (
     <Wrapper>
@@ -19,14 +36,14 @@ function ContentTopLeft() {
         onClick={handleClickOpenIssue}
       >
         <img src={EXCLAMATION_MARK} />
-        <span>열린 이슈(3)</span>
+        <span>열린 이슈({openIssueLength})</span>
       </OpenIssueContainer>
       <CloseIssueContainer
         color={isIssueOpenStatus ? theme.colors.text : 'black'}
         onClick={handleClickClosedIssue}
       >
         <img src={BOX} />
-        <span>닫힌 이슈(2)</span>
+        <span>닫힌 이슈({closeIssueLength})</span>
       </CloseIssueContainer>
     </Wrapper>
   );
