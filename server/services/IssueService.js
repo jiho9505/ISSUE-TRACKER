@@ -23,12 +23,15 @@ const getIssues = async (status, filter, writer, page) => {
       _id: issue._id,
       title: issue.title,
       isOpen: issue.isOpen,
+      createdAt: issue.createdAt,
       writerName: issue.writer.name,
     };
     const assigneeResult = assignees.map((assignee) => ({
+      _id: assignee._id,
       avatar: assignee.userId.avatar,
     }));
     const issueLabelResult = issueLabels.map((issueLabel) => ({
+      _id: issueLabel._id,
       name: issueLabel.labelId.name,
       bgColor: issueLabel.labelId.bgColor,
       textColor: issueLabel.labelId.textColor,
