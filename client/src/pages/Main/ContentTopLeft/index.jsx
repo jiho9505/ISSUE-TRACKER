@@ -7,8 +7,8 @@ import { seroCenterAlign } from '@/static/style/mixin';
 
 function ContentTopLeft() {
   const theme = useTheme();
-
   const [isIssueOpenStatus, setIsIssueOpenStatus] = useState(true);
+
   const handleClickOpenIssue = () => setIsIssueOpenStatus(true);
   const handleClickClosedIssue = () => setIsIssueOpenStatus(false);
 

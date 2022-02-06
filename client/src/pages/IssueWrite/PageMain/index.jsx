@@ -71,7 +71,7 @@ function PageMain() {
       labels,
     };
 
-    const result = await api.post('/board', body);
+    const result = await api.post('/issue', body);
 
     if (result.isSuccess) {
       setToast({

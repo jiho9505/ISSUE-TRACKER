@@ -12,7 +12,7 @@ import { seroCenterAlign } from '@/static/style/mixin';
 function SearchFilter() {
   const theme = useTheme();
   const [showFilterList, setShowFilterList] = useState(false);
-  const [filterPlaceHolder, setFilterPlaceHolder] = useState('all');
+  const [filterPlaceHolder, setFilterPlaceHolder] = useState('no filter');
   const filterItems = useIssueFilterQuery();
   const [choicedIdx, setchoicedIdx] = useState(-1);
 
@@ -23,7 +23,7 @@ function SearchFilter() {
     const choicedFilter = filterItems[idx];
     if (choicedIdx === idx) {
       setchoicedIdx(-1);
-      setFilterPlaceHolder('all');
+      setFilterPlaceHolder('no filter');
       return;
     }
     setchoicedIdx(idx);
