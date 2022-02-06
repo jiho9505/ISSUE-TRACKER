@@ -17,7 +17,7 @@ function IssuePagination() {
   };
   return (
     <div>
-      {Issues && (
+      {Issues?.length > 0 && (
         <Pagination
           refreshState={refreshState}
           length={Issues.length}
