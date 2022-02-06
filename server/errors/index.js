@@ -18,6 +18,7 @@ export const error = {
   CREATE_COMMENT_ERROR: '댓글을 게시하는데 실패하였습니다.',
   DELETE_COMMENT_ERROR: '댓글를 삭제하는데 실패하였습니다.',
   GET_ISSUE_ERROR: '이슈를 가져오는데 실패하였습니다.',
+  GET_ISSUE_LENGTH_ERROR: '이슈 개수를 가져오는데 실패하였습니다.',
   CREATE_IMAGE_ERROR: '이미지를 추가하는데 실패하였습니다.',
   CREATE_ISSUE_ERROR: '이슈를 추가하는데 실패하였습니다.',
   UPDATE_ISSUE_ERROR: '이슈를 수정하는데 실패하였습니다.',

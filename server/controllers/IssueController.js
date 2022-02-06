@@ -15,6 +15,18 @@ const getIssues = async (req, res) => {
   }
 };
 
+const getIssueLength = async (req, res) => {
+  try {
+    const filter = req.query.filter;
+    const writer = req._id;
+    const result = await IssueService.getIssueLength(filter, writer);
+    return res.json({ success: true, result });
+  } catch (e) {
+    console.log(e);
+    return res.json({ success: false, message: error.GET_ISSUE_LENGTH_ERROR });
+  }
+};
+
 const createIssue = async (req, res) => {
   try {
     const body = req.body;
@@ -82,6 +94,7 @@ const createIssue = async (req, res) => {
 
 export const IssueController = {
   getIssues,
+  getIssueLength,
   createIssue,
   // getDetail,
   // createImage,

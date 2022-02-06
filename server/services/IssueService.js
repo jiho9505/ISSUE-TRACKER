@@ -116,6 +116,73 @@ const getIssues = async (status, filter, writer, page) => {
   return result;
 };
 
+/**
+ * @filter
+ * 0: 내가 작성한 이슈
+ * 1: 나에게 할당된 이슈
+ * 2: 내가 댓글을 남긴 이슈
+ */
+const getIssueLength = async (filter, writer) => {
+  const isOpenBody = { isOpen: true };
+  const result = [];
+
+  switch (filter) {
+    case '0':
+      const [totalIssuesAuthorMe, openIssuesAuthorMe] = await Promise.all([
+        Issue.find({ writer }),
+        Issue.find({ writer, ...isOpenBody }),
+      ]);
+      const closeIssuesAuthorMeLength = totalIssuesAuthorMe.length - openIssuesAuthorMe.length;
+      result.push({
+        openIssueLength: openIssuesAuthorMe.length,
+        closeIssueLength: closeIssuesAuthorMeLength,
+      });
+      break;
+    case '1':
+      const assigneeArr = await Assignee.find({ userId: writer }).populate('issueId');
+      let openIssuesAssigneeMeLength = 0;
+      assigneeArr.forEach((assignee) => {
+        if (assignee.issueId.isOpen) openIssuesAssigneeMeLength += 1;
+      });
+      const totalIssuesAssigneeMeLength = assigneeArr.length;
+      const closeIssuesAssigneeMeLength = totalIssuesAssigneeMeLength - openIssuesAssigneeMeLength;
+      result.push({
+        openIssueLength: openIssuesAssigneeMeLength,
+        closeIssueLength: closeIssuesAssigneeMeLength,
+      });
+      break;
+    case '2':
+      const issueIdArr = await Comment.find({ writer }).distinct('issueId');
+      let openIssuesCommentMeLength = 0;
+
+      await Promise.all(
+        issueIdArr.map(async (issueId) => {
+          const openIssue = await Issue.find({ _id: issueId, ...isOpenBody });
+          openIssuesCommentMeLength += openIssue.length;
+        })
+      );
+
+      const totalIssuesCommentMeLength = issueIdArr.length;
+      const closeIssuesCommentMeLength = totalIssuesCommentMeLength - openIssuesCommentMeLength;
+      result.push({
+        openIssueLength: openIssuesCommentMeLength,
+        closeIssueLength: closeIssuesCommentMeLength,
+      });
+
+      break;
+    default:
+      const [issues, openIssues] = await Promise.all([Issue.find({}), Issue.find(isOpenBody)]);
+      const closeIssueLength = issues.length - openIssues.length;
+      result.push({
+        openIssueLength: openIssues.length,
+        closeIssueLength,
+      });
+      break;
+  }
+
+  return result;
+};
+
 const createIssue = async (body, writer) => {
   const arr = ['-'];
   const issueBody = { writer, title: body.title };
@@ -196,6 +263,7 @@ const createIssue = async (body, writer) => {
 
 export const IssueService = {
   getIssues,
+  getIssueLength,
   createIssue,
   // getDetail,
   // createImage,
