@@ -26,16 +26,18 @@ function IssueOptionContainer({ refreshState }) {
   useEffect(() => {
     if (refreshState) {
       const choicedUserArr = choicedAssgineeIdxArr.map((idx) => userList[idx]);
+      const choicedUserIDArr = choicedAssgineeIdxArr.map((idx) => userList[idx]._id);
       setAssigneeList(choicedUserArr);
-      refreshState('ASSIGNEE', choicedUserArr);
+      refreshState('ASSIGNEE', choicedUserIDArr);
     }
   }, [choicedAssgineeIdxArr]);
 
   useEffect(() => {
     if (refreshState) {
       const choicedLabelArr = choicedLabelIdxArr.map((idx) => labelList[idx]);
+      const choicedLabelIDArr = choicedLabelIdxArr.map((idx) => labelList[idx]._id);
       setChoicedLabelList(choicedLabelArr);
-      refreshState('LABEL', choicedLabelArr);
+      refreshState('LABEL', choicedLabelIDArr);
     }
   }, [choicedLabelIdxArr]);
 
