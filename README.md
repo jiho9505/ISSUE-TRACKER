@@ -7,7 +7,7 @@
 
 ```
 내용 : 깃헙의 이슈 관리 시스템을 나만의 스타일로 만들어 현실 이슈를 관리하는 용도로 사용
-소요시간 & 역할 : 3weeks / 1인 풀스택
+소요시간 / 역할 : 3 weeks / 1인 FULL-STACK
 ```
 
 ### `기술스택`
@@ -98,6 +98,7 @@ others
 ```
 Frontend
 ├── Migrate TypeScript
+├── Reactive Web
 └── Use SSR
 ```
 
@@ -105,6 +106,6 @@ Frontend
 Backend
 ├── Migrate TypeScript
 ├── Migrate MYSQL
-├── Use Token by using Github OAuth
-└── Deploy by using AWS
+├── Use Token using Github OAuth
+└── Deploy using AWS
 ```
