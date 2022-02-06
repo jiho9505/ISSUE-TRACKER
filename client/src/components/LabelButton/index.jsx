@@ -19,4 +19,5 @@ const Button = styled.button`
   font-size: 12px;
   min-width: 120px;
   height: 30px;
+  cursor: default;
 `;

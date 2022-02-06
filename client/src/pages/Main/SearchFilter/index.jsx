@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
+import { useRecoilState } from 'recoil';
 
 import CustomButton from '@/components/CustomButton';
 import Dropdown from '@/components/Dropdown';
@@ -8,6 +9,7 @@ import Dropdown from '@/components/Dropdown';
 import { FILTER, SEARCH, CHECKED_CIRCLE, CIRCLE } from '@/static/constants/image-path';
 import { useIssueFilterQuery } from '@/hooks/querys/useIssueFilter';
 import { seroCenterAlign } from '@/static/style/mixin';
+import { paramGetIssueAtom } from '@/store/getIssueParamState';
 
 function SearchFilter() {
   const theme = useTheme();
@@ -15,6 +17,7 @@ function SearchFilter() {
   const [filterPlaceHolder, setFilterPlaceHolder] = useState('no filter');
   const filterItems = useIssueFilterQuery();
   const [choicedIdx, setchoicedIdx] = useState(-1);
+  const [paramGetIssue, setParamGetIssue] = useRecoilState(paramGetIssueAtom);
 
   const handleClickFilterButton = () => setShowFilterList(!showFilterList);
   const handleMouseLeaveDropDown = () => setShowFilterList(false);
@@ -24,10 +27,12 @@ function SearchFilter() {
     if (choicedIdx === idx) {
       setchoicedIdx(-1);
       setFilterPlaceHolder('no filter');
+      setParamGetIssue({ ...paramGetIssue, filter: -1 });
       return;
     }
     setchoicedIdx(idx);
     setFilterPlaceHolder(choicedFilter.form);
+    setParamGetIssue({ ...paramGetIssue, filter: idx });
   };
 
   const createCircleImg = (choicedIdx, idx) => {
