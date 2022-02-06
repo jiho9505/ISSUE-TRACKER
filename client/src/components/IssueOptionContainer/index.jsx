@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
+import { useSetRecoilState } from 'recoil';
 
 import Dropdown from '../Dropdown';
 import ProfileImage from '../ProfileImage';
@@ -9,11 +10,17 @@ import LabelButton from '../LabelButton';
 import { api } from '@/api/base';
 import { seroCenterAlign, allCenterAlign } from '@/static/style/mixin';
 import { CHECKED_CIRCLE, CIRCLE, PLUS } from '@/static/constants/image-path';
+import { toastAtom } from '@/store/toastState';
 
 const ISSUE_OPTIONS_ARRAY = ['담당자', '레이블', '마일스톤'];
+const ASSIGNEE_MAX_LENGTH = 5;
+const LABEL_MAX_LENGTH = 3;
+const ASSIGNEE_KEY = 'ASSIGNEE';
+const LABEL_KEY = 'LABEL_KEY';
 
 function IssueOptionContainer({ refreshState }) {
   const theme = useTheme();
+  const setToast = useSetRecoilState(toastAtom);
   const [showAssgineeDropdown, setShowAssgineeDropdown] = useState(false);
   const [showLabelDropdown, setShowLabelDropdown] = useState(false);
   const [choicedAssgineeIdxArr, setChoicedAssgineeIdxArr] = useState([]);
@@ -52,24 +59,35 @@ function IssueOptionContainer({ refreshState }) {
   };
 
   const handleClickAssignee = (choicedIdxArr, idx) => {
-    const newArr = returnNewArr(choicedIdxArr, idx);
+    const newArr = returnNewArr(choicedIdxArr, idx, ASSIGNEE_KEY);
     setChoicedAssgineeIdxArr(newArr);
   };
 
   const handleClickLabel = (choicedIdxArr, idx) => {
-    const newArr = returnNewArr(choicedIdxArr, idx);
+    const newArr = returnNewArr(choicedIdxArr, idx, LABEL_KEY);
     setChoicedLabelIdxArr(newArr);
   };
 
   const handleMouseLeaveAssigneeDropdown = () => setShowAssgineeDropdown(false);
   const handleMouseLeaveLabelDropdown = () => setShowLabelDropdown(false);
 
-  const returnNewArr = (choicedIdxArr, idx) => {
+  const returnNewArr = (choicedIdxArr, idx, key) => {
     if (choicedIdxArr.includes(idx)) {
       const copyArr = [...choicedIdxArr];
       const idxToRemove = copyArr.findIndex((ele) => ele === idx);
       copyArr.splice(idxToRemove, 1);
       return copyArr;
+    }
+    if (
+      (key === ASSIGNEE_KEY && choicedIdxArr.length === ASSIGNEE_MAX_LENGTH) ||
+      (key === LABEL_KEY && choicedIdxArr.length === LABEL_MAX_LENGTH)
+    ) {
+      setToast({
+        isActive: true,
+        title: '더 이상 추가할 수 없습니다❗️',
+        mode: 'fail',
+      });
+      return choicedIdxArr;
     }
     return [...choicedIdxArr, idx];
   };
