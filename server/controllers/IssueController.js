@@ -39,16 +39,16 @@ const createIssue = async (req, res) => {
   }
 };
 
-// const getDetail = async (req, res) => {
-//   try {
-//     const issueId = req.query.id;
-//     const result = await IssueService.getDetail(issueId);
+const getDetail = async (req, res) => {
+  try {
+    const issueId = req.query.id;
+    const result = await IssueService.getDetail(issueId);
 
-//     return res.json({ success: true, result });
-//   } catch (e) {
-//     return res.json({ success: false, message: error.GET_BOARD_ERROR });
-//   }
-// };
+    return res.json({ success: true, result });
+  } catch (e) {
+    return res.json({ success: false, message: error.GET_ISSUE_ERROR });
+  }
+};
 
 const createImage = async (req, res) => {
   const upload = await IssueService.createImage();
@@ -61,43 +61,34 @@ const createImage = async (req, res) => {
   });
 };
 
-// const updateIssue = async (req, res) => {
-//   try {
-//     const issueId = req.query.id;
-//     const body = {
-//       _id: issueId,
-//     };
-//     const { title, description, images, chooseBoard } = req.body;
-//     const content = {
-//       title,
-//       description,
-//       images,
-//       chooseBoard,
-//     };
+const updateIssue = async (req, res) => {
+  try {
+    const issueId = req.query.id;
+    const body = req.body;
 
-//     await IssueService.updateIssue(body, content);
-//     return res.json({ success: true });
-//   } catch (e) {
-//     return res.json({ success: false, message: error.UPDATE_BOARD_ERROR });
-//   }
-// };
+    await IssueService.updateIssue(issueId, body);
+    return res.json({ success: true });
+  } catch (e) {
+    return res.json({ success: false, message: error.UPDATE_ISSUE_ERROR });
+  }
+};
 
-// const deleteIssue = async (req, res) => {
-//   try {
-//     const issueId = req.query.id;
-//     await IssueService.deleteIssue(issueId);
-//     return res.json({ success: true });
-//   } catch (e) {
-//     return res.json({ success: false, message: error.DELETE_BOARD_ERROR });
-//   }
-// };
+const deleteIssue = async (req, res) => {
+  try {
+    const issueId = req.query.id;
+    await IssueService.deleteIssue(issueId);
+    return res.json({ success: true });
+  } catch (e) {
+    return res.json({ success: false, message: error.DELETE_ISSUE_ERROR });
+  }
+};
 
 export const IssueController = {
   getIssues,
   getIssueLength,
   createIssue,
-  // getDetail,
+  getDetail,
   createImage,
-  // updateIssue,
-  // deleteIssue,
+  updateIssue,
+  deleteIssue,
 };
