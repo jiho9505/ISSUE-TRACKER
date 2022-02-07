@@ -10,7 +10,7 @@ function AddingFile() {
         <img src={CLIP} alt="파일 첨부" />
         <span>파일 첨부하기 </span>
       </label>
-      <input type="file" id="file-id" />
+      <input type="file" id="file-id" disabled />
     </AddingFileContainer>
   );
 }
@@ -24,7 +24,7 @@ const AddingFileContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 7px;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
 
   span {

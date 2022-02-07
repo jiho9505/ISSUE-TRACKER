@@ -31,6 +31,11 @@ function IssueOptionContainer({ refreshState }) {
   const [choicedLabelList, setChoicedLabelList] = useState([]);
 
   useEffect(() => {
+    callUserAPI();
+    callLabelAPI();
+  }, []);
+
+  useEffect(() => {
     if (refreshState) {
       const choicedUserArr = choicedAssgineeIdxArr.map((idx) => userList[idx]);
       const choicedUserIDArr = choicedAssgineeIdxArr.map((idx) => userList[idx]._id);
@@ -51,10 +56,8 @@ function IssueOptionContainer({ refreshState }) {
   const handleClickPlusIcon = async (option) => {
     if (option === '담당자') {
       setShowAssgineeDropdown(!showAssgineeDropdown);
-      await callUserAPI();
     } else if (option === '레이블') {
       setShowLabelDropdown(!showLabelDropdown);
-      await callLabelAPI();
     }
   };
 
