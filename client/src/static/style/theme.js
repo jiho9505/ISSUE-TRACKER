@@ -11,6 +11,8 @@ export default {
     activeTitle: '#14142B',
     fitlerText: '#4E4B66',
     red: '#FF3B30',
+    purple: '#0025E7',
+    lightPurple: '#CCD4FF',
   },
   font: {
     thick: 'BMDOHYEON',
