@@ -6,20 +6,21 @@ import { preventXSS } from '@/utils/helper';
 
 const TITLE_MAX_LENGTH = '30';
 
-function WritingTitle({ refreshState }) {
+function WritingTitle({ refreshState, className, init = '', mode = '' }) {
   const theme = useTheme();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(init ? init : '');
 
   const handleChangeTitle = (e) => {
     const newTitle = preventXSS(e.target.value);
     setTitle(newTitle);
-    refreshState('TITLE', e.target.value);
+    mode === 'EDIT' ? refreshState(newTitle) : refreshState('TITLE', newTitle);
   };
 
   return (
     <>
-      {title && <TitleLabel>제목</TitleLabel>}
+      {title && <TitleLabel className={className}>제목</TitleLabel>}
       <IssueTitle
+        className={className}
         theme={theme}
         value={title}
         onChange={handleChangeTitle}
