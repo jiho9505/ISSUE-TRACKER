@@ -50,16 +50,16 @@ const createIssue = async (req, res) => {
 //   }
 // };
 
-// const createImage = async (req, res) => {
-//   const upload = await IssueService.createImage();
-//   upload(req, res, (err) => {
-//     if (err) {
-//       return res.json({ success: false, message: error.CREATE_IMAGE_ERROR });
-//     }
-//     const file = res.req.file;
-//     return res.json({ success: true, filePath: file.location });
-//   });
-// };
+const createImage = async (req, res) => {
+  const upload = await IssueService.createImage();
+  upload(req, res, (err) => {
+    if (err) {
+      return res.json({ success: false, message: error.CREATE_IMAGE_ERROR });
+    }
+    const file = res.req.file;
+    return res.json({ success: true, filePath: file.location });
+  });
+};
 
 // const updateIssue = async (req, res) => {
 //   try {
@@ -97,7 +97,7 @@ export const IssueController = {
   getIssueLength,
   createIssue,
   // getDetail,
-  // createImage,
+  createImage,
   // updateIssue,
   // deleteIssue,
 };

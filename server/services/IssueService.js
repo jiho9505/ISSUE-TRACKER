@@ -223,29 +223,29 @@ const createIssue = async (body, writer) => {
 //   return result;
 // };
 
-// const createImage = async () => {
-//   const s3 = new AWS.S3({
-//     accessKeyId: config.accessKeyId,
-//     secretAccessKey: config.secretAccessKey,
-//     region: config.region,
-//   });
+const createImage = async () => {
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.accessKeyId,
+    secretAccessKey: process.env.secretAccessKey,
+    region: process.env.region,
+  });
 
-//   const storage = multerS3({
-//     s3: s3,
-//     bucket: 'fgd-storeimage',
-//     contentType: multerS3.AUTO_CONTENT_TYPE,
-//     acl: 'public-read',
-//     metadata: function (req, file, cb) {
-//       cb(null, { fieldName: file.fieldname });
-//     },
-//     key: function (req, file, cb) {
-//       cb(null, `storeImages/${Date.now()}_${file.originalname}`);
-//     },
-//   });
+  const storage = multerS3({
+    s3: s3,
+    bucket: 'issue-tracker',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(null, `imgs/${Date.now()}_${file.originalname}`);
+    },
+  });
 
-//   const upload = multer({ storage }).single('file');
-//   return upload;
-// };
+  const upload = multer({ storage }).single('file');
+  return upload;
+};
 
 // const updateIssue = async (body, content) => {
 //   try {
@@ -270,7 +270,7 @@ export const IssueService = {
   getIssueLength,
   createIssue,
   // getDetail,
-  // createImage,
+  createImage,
   // updateIssue,
   // deleteIssue,
 };
