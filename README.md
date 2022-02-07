@@ -3,18 +3,20 @@
 
 ![bg3](https://user-images.githubusercontent.com/50862052/152633093-9de97626-fe6d-456c-a820-2c53ee53de5a.jpg)
 
-### `프로젝트 소개`
+### `프로젝트 내용`
 
-```
-내용 : 깃헙의 이슈 관리 시스템을 나만의 스타일로 만들어 현실 이슈를 관리하는 용도로 사용
-소요시간 / 역할 : 3 weeks / 1인 FULL-STACK
-```
+##### - `깃헙의 이슈 관리 시스템`을 `나만의 스타일`로 만들어 `현실 이슈를 관리`한다
+
+##### - `3주` 동안 갈려버린 `1인 풀스택` 개발
+
+---
 
 ### `기술스택`
 
 ```
 Frontend
-    React(ver18) | Emotion | Recoil | ReactQuery | Webpack | Babel
+    React(ver18) | Emotion | Recoil
+    ReactQuery | Webpack | Babel
 ```
 
 ```
