@@ -23,6 +23,7 @@ const Main = lazy(() => import('./pages/Main' /* webpackPrefetch: true */));
 const IssueWrite = lazy(() => import('./pages/IssueWrite' /* webpackPrefetch: true */));
 const Label = lazy(() => import('./pages/Label' /* webpackPrefetch: true */));
 const MileStone = lazy(() => import('./pages/MileStone' /* webpackPrefetch: true */));
+const IssueDetail = lazy(() => import('./pages/IssueDetail' /* webpackPrefetch: true */));
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const createMainContent = () => {
           <Route path="/" component={<Login />} auth="no-accessor" />
           <Route path="/register" component={<Register />} auth="no-accessor" />
           <Route path="/main" component={<Main />} auth="accessor" />
+          <Route path="/issue/:id" component={<IssueDetail />} auth="accessor" />
           <Route path="/write" component={<IssueWrite />} auth="accessor" />
           <Route path="/label" component={<Label />} auth="accessor" />
           <Route path="/milestone" component={<MileStone />} auth="accessor" />
