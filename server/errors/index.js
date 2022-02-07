@@ -10,6 +10,7 @@ export const error = {
   GET_LABEL_ERROR: '레이블 정보를 가져오는데 실패하였습니다.',
   GET_LABEL_LENGTH_ERROR: '레이블 개수를 가져오는데 실패하였습니다.',
   CREATE_LABEL_ERROR: '이미 존재하는 레이블이 있습니다.',
+  LABEL_LIMIT_ERROR: '레이블을 더 이상 추가할 수 없습니다 (갯수제한)',
   UPDATE_LABEL_ERROR: '이미 존재하는 레이블이 있습니다.',
   DELETE_LABEL_ERROR: '레이블을 삭제하는데 에러가 발생했습니다',
   GET_ISSUE_FILTER_ERROR: '이슈 필터를 가져오는데 실패하였습니다.',
