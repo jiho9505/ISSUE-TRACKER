@@ -2,19 +2,38 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
-function PageTitle({ info }) {
+import WritingTitle from '@/components/WritingTitle';
+
+function PageTitle({ info, isEditTitle, refreshState, newTitle }) {
   const theme = useTheme();
 
-  const handleChangeTitle = () => {};
-  return <Title theme={theme} value={info} disabled />;
+  return (
+    <Wrapper>
+      {isEditTitle ? (
+        <WritingPageTitle refreshState={refreshState} init={newTitle} mode="EDIT" />
+      ) : (
+        <Title theme={theme}>{info}</Title>
+      )}
+    </Wrapper>
+  );
 }
 
 export default PageTitle;
 
-const Title = styled.input`
-  font-size: 2rem;
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 60px;
+`;
 
-  &:disabled {
-    background-color: ${(props) => props.theme.colors.background};
+const Title = styled.div`
+  font-size: 2rem;
+`;
+
+const WritingPageTitle = styled(WritingTitle)`
+  &:focus {
+    background-color: white;
+    border: 1px solid black;
   }
 `;
