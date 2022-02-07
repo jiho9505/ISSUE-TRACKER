@@ -34,3 +34,9 @@ export const getTimeMadeIssue = (issueTime) => {
     return `${yearMadeIssue}년 ${monthMadeIssue}월 ${dateMadeIssue}일`;
   }
 };
+
+export const getRouterParams = () => {
+  const pathname = location.pathname;
+  const urlArr = pathname.split('/');
+  return urlArr[urlArr.length - 1];
+};
