@@ -212,16 +212,18 @@ const createIssue = async (body, writer) => {
   await Promise.all([...assigneePromise, ...issueLabelPromise, ...commentPromise, issue.save()]);
 };
 
-// const getDetail = async (issueId) => {
-//   const [issue, comments, assignees, issueLabels] = await Promise.all([
-//     Issue.findOne({ _id: issueId }).populate('writer'),
-//     Comment.find({ issueId }).populate('writer'),
-//     Assignee.find({ issueId }).populate('userId'),
-//     IssueLabel.find({ issueId }).populate('labelId'),
-//   ]);
-//   console.log(issue, comments, assignees, issueLabels);
-//   return result;
-// };
+const getDetail = async (issueId) => {
+  const issue = await Issue.findOne({ _id: issueId }).populate('writer');
+  const issueResult = {
+    _id: issue._id,
+    title: issue.title,
+    isOpen: issue.isOpen,
+    createdAt: issue.createdAt,
+    writerName: issue.writer.name,
+  };
+
+  return issueResult;
+};
 
 const createImage = async () => {
   const s3 = new AWS.S3({
@@ -247,30 +249,25 @@ const createImage = async () => {
   return upload;
 };
 
-// const updateIssue = async (body, content) => {
-//   try {
-//     await Board.findOneAndUpdate(body, content);
-//     return;
-//   } catch (e) {
-//     throw e;
-//   }
-// };
+const updateIssue = async (_id, body) => {
+  await Issue.findOneAndUpdate({ _id }, body);
+};
 
-// const deleteIssue = async (boardId) => {
-//   try {
-//     await Promise.all([Board.findOneAndDelete({ _id: boardId }), Comment.deleteMany({ boardId })]);
-//     return;
-//   } catch (e) {
-//     throw e;
-//   }
-// };
+const deleteIssue = async (_id) => {
+  await Promise.all([
+    Issue.findOneAndDelete({ _id }),
+    Comment.deleteMany({ issueId: _id }),
+    IssueLabel.deleteMany({ issueId: _id }),
+    Assignee.deleteMany({ issueId: _id }),
+  ]);
+};
 
 export const IssueService = {
   getIssues,
   getIssueLength,
   createIssue,
-  // getDetail,
+  getDetail,
   createImage,
-  // updateIssue,
-  // deleteIssue,
+  updateIssue,
+  deleteIssue,
 };
