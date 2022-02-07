@@ -96,9 +96,15 @@ others
 ### `개선사항`
 
 ```
+Common
+└── Complete More Features
+```
+
+```
 Frontend
 ├── Migrate TypeScript
 ├── Reactive Web
+├── Memoization
 └── Use SSR
 ```
 
