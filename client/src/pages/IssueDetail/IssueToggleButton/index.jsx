@@ -6,10 +6,10 @@ import CustomButton from '@/components/CustomButton';
 
 import { BOX_BLUE } from '@/static/constants/image-path';
 
-function IssueToggleButton() {
+function IssueToggleButton({ onClick }) {
   const theme = useTheme();
   return (
-    <ToggleButton sizeLevel={1} theme={theme}>
+    <ToggleButton onClick={onClick} sizeLevel={1} theme={theme}>
       <img src={BOX_BLUE} />
       <span>이슈 닫기</span>
     </ToggleButton>
