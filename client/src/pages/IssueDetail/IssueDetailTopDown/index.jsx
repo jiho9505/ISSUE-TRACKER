@@ -31,7 +31,12 @@ function IssueDetailTopDown() {
     );
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
 
   return (
     <DownPart theme={theme}>
@@ -76,4 +81,9 @@ const IssueStatusCloseButton = styled(CustomButton)`
   span {
     color: ${(props) => props.theme.colors.purple};
   }
+`;
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

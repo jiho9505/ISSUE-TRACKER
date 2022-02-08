@@ -20,7 +20,12 @@ function LabelContent() {
     });
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
   return (
     <LabelContentContainer theme={theme}>
       <TitleContainer>
@@ -51,4 +56,9 @@ const Title = styled.span`
   line-height: 28px;
   color: ${({ theme }) => theme.colors.text};
   font-weight: bold;
+`;
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

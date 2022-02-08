@@ -102,7 +102,12 @@ function IssueDetailMain() {
       navigateTo('/main');
     }, switchPageTime);
   };
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
 
   return (
     <IssueDetailMainContainer theme={theme}>
@@ -163,7 +168,7 @@ const CommentButtonContainer = styled.div`
 `;
 
 const CommentButton = styled(CustomButton)`
-  width: 130px;
+  width: 140px;
 `;
 
 const RightContainer = styled.div`

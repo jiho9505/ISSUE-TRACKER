@@ -13,7 +13,12 @@ function ContentMain() {
   const paramGetIssue = useRecoilValue(paramGetIssueAtom);
   const [Issues, isLoading] = useIssueQuery(paramGetIssue);
 
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
   if (Issues?.length === 0) return <Empty />;
 
   return (
@@ -28,3 +33,9 @@ function ContentMain() {
 export default ContentMain;
 
 const ContentMainContainer = styled.div``;
+
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
