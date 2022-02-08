@@ -23,10 +23,9 @@ function ProfileImage({ className, imageSrc, onClick = () => {}, items = [] }) {
 
   return (
     <ProfileImageContainer className={className} items={items}>
-      <img src={imageSrc} onClick={handleClickImg} alt="유저 이미지" />
+      {imageSrc && <img src={imageSrc} onClick={handleClickImg} alt="유저 이미지" />}
       {showDropdown && (
         <ProfileDropdown title="Settings" onMouseLeave={handleMouseLeaveDropDown}>
-          {' '}
           {createDropdownMenu()}
         </ProfileDropdown>
       )}
