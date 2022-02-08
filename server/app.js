@@ -12,7 +12,7 @@ const __dirname = path.resolve();
 const app = express();
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB is connected...');
   })
