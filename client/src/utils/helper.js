@@ -19,7 +19,8 @@ export const getTimeMadeIssue = (issueTime) => {
   const secDiff = (new Date().getTime() - new Date(issueTime).getTime()) / 1000;
 
   if (secDiff < 60) {
-    return `${secDiff}초 전`;
+    const sec = Math.floor(secDiff);
+    return `${sec}초 전`;
   } else if (secDiff < 60 * 60) {
     const minDiff = Math.floor(secDiff / 60);
     return `${minDiff}분 전`;
