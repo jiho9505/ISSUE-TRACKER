@@ -41,3 +41,7 @@ export const getRouterParams = () => {
   const urlArr = pathname.split('/');
   return urlArr[urlArr.length - 1];
 };
+
+export const getTotalPage = (length, standard) => {
+  return length % standard ? Math.floor(length / standard) + 1 : length / standard;
+};

@@ -1,5 +1,5 @@
 import { error } from '../errors/index.js';
-import { LabelService } from './../services/LabelService.js';
+import { LabelService } from '../services/LabelService.js';
 
 const getLabels = async (req, res) => {
   try {

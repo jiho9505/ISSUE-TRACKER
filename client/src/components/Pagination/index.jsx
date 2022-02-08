@@ -3,10 +3,11 @@ import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
 import { allCenterAlign } from '@/static/style/mixin';
+import { getTotalPage } from '@/utils/helper';
 
 function Pagination({ length, standard, refreshState }) {
   const [activeIdx, setActiveIdx] = useState(0);
-  const count = Math.floor(length / standard) + 1;
+  const count = getTotalPage(length, standard);
   const theme = useTheme();
 
   const handleClickPage = (idx) => {

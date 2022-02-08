@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { LabelController } from './../controllers/LabelController.js';
+import { LabelController } from '../controllers/LabelController.js';
 import { auth } from '../middleware/auth.js';
 
 const router = express.Router();

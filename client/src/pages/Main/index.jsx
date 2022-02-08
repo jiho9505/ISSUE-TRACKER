@@ -14,7 +14,7 @@ function Main() {
   const setParamGetIssue = useSetRecoilState(paramGetIssueAtom);
 
   useEffect(() => {
-    setParamGetIssue({ filter: -1, status: 'open', page: 1 });
+    setParamGetIssue({ status: 'open', filter: -1, page: 1 });
   }, []);
 
   return (

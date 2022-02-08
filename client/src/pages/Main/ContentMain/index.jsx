@@ -13,29 +13,24 @@ function ContentMain() {
   const paramGetIssue = useRecoilValue(paramGetIssueAtom);
   const [Issues, isLoading] = useIssueQuery(paramGetIssue);
 
-  if (isLoading)
-    return (
-      <LoaderContainer>
-        <Loader />
-      </LoaderContainer>
-    );
   if (Issues?.length === 0) return <Empty />;
 
   return (
     <ContentMainContainer>
-      {Issues.map((info) => (
+      {Issues?.map((info) => (
         <Issue key={info.issue._id} info={info} />
       ))}
+      {isLoading && <Loader />}
     </ContentMainContainer>
   );
 }
 
 export default ContentMain;
 
-const ContentMainContainer = styled.div``;
-
-const LoaderContainer = styled.div`
+const ContentMainContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  max-height: 700px;
 `;

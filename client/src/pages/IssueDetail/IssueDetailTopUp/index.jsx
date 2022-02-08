@@ -76,12 +76,7 @@ function IssueDetailTopUp() {
     queryClient.invalidateQueries(['ISSUE']);
   };
 
-  if (isLoading)
-    return (
-      <LoaderContainer>
-        <Loader />
-      </LoaderContainer>
-    );
+  if (isLoading) return <Loader />;
 
   return (
     <UpPart onSubmit={handleClickCompletion}>
@@ -114,9 +109,4 @@ const UpPart = styled.form`
 const ButtonContainer = styled.div`
   ${seroCenterAlign}
   gap: 10px;
-`;
-const LoaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

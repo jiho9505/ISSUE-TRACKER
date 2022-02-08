@@ -102,18 +102,13 @@ function IssueDetailMain() {
       navigateTo('/main');
     }, switchPageTime);
   };
-  if (isLoading)
-    return (
-      <LoaderContainer>
-        <Loader />
-      </LoaderContainer>
-    );
+  if (isLoading) return <Loader />;
 
   return (
     <IssueDetailMainContainer theme={theme}>
       <CommentContainer>
         {comments?.map((comment) => (
-          <Comment info={comment} />
+          <Comment key={comment._id} info={comment} />
         ))}
 
         <WritingPart>
@@ -133,7 +128,7 @@ function IssueDetailMain() {
         </CommentButtonContainer>
       </CommentContainer>
       <RightContainer>
-        <IssueOptionContainer />
+        <IIssueOptionContainer refreshState={() => {}} mode="EDIT" />
         <DeleteIssueButton onClick={handleClickDeleteIssueButton}>
           <img src={TRASH} />
           <span>이슈 삭제</span>
@@ -168,7 +163,7 @@ const CommentButtonContainer = styled.div`
 `;
 
 const CommentButton = styled(CustomButton)`
-  width: 140px;
+  width: 130px;
 `;
 
 const RightContainer = styled.div`
@@ -182,12 +177,12 @@ const DeleteIssueButton = styled.div`
   margin-top: 20px;
   justify-content: flex-end;
   cursor: pointer;
+  margin-bottom: 100px;
   span {
     color: ${({ theme }) => theme.colors.red};
   }
 `;
-const LoaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+const IIssueOptionContainer = styled(IssueOptionContainer)`
+  width: 268px;
 `;

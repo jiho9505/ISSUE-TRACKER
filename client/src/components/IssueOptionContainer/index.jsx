@@ -11,6 +11,7 @@ import { api } from '@/api/base';
 import { seroCenterAlign, allCenterAlign } from '@/static/style/mixin';
 import { CHECKED_CIRCLE, CIRCLE, PLUS } from '@/static/constants/image-path';
 import { toastAtom } from '@/store/toastState';
+import { getRouterParams } from '@/utils/helper';
 
 const ISSUE_OPTIONS_ARRAY = ['담당자', '레이블', '마일스톤'];
 const ASSIGNEE_MAX_LENGTH = 5;
@@ -18,7 +19,7 @@ const LABEL_MAX_LENGTH = 3;
 const ASSIGNEE_KEY = 'ASSIGNEE';
 const LABEL_KEY = 'LABEL_KEY';
 
-function IssueOptionContainer({ refreshState }) {
+function IssueOptionContainer({ refreshState, className, mode = '' }) {
   const theme = useTheme();
   const setToast = useSetRecoilState(toastAtom);
   const [showAssgineeDropdown, setShowAssgineeDropdown] = useState(false);
@@ -29,17 +30,36 @@ function IssueOptionContainer({ refreshState }) {
   const [assigneeList, setAssigneeList] = useState([]);
   const [labelList, setLabelList] = useState([]);
   const [choicedLabelList, setChoicedLabelList] = useState([]);
+  const issueId = getRouterParams();
+
+  const [choicedUserIDArr, setChoicedUserIDArr] = useState([]);
+  const [choicedLabelIDArr, setChoicedLabelIDArr] = useState([]);
 
   useEffect(() => {
     callUserAPI();
     callLabelAPI();
+    mode === 'EDIT' && callAPIAboutEditMode();
   }, []);
+
+  const callAPIAboutEditMode = async () => {
+    const [assigneeResult, issueLabelResult] = await Promise.all([
+      api.get(`/assignee/about-issue?issueId=${issueId}`),
+      api.get(`/issue-label/about-issue?issueId=${issueId}`),
+    ]);
+    if (!assigneeResult.isSuccess) throw new Error(assigneeResult.message);
+    if (!issueLabelResult.isSuccess) throw new Error(issueLabelResult.message);
+    const initAssigneeIdx = assigneeResult.data.result.map((assignee) => assignee.idx);
+    const initIssueLabelIdx = issueLabelResult.data.result.map((issueLabel) => issueLabel.idx);
+    setChoicedAssgineeIdxArr(initAssigneeIdx);
+    setChoicedLabelIdxArr(initIssueLabelIdx);
+  };
 
   useEffect(() => {
     if (refreshState) {
       const choicedUserArr = choicedAssgineeIdxArr.map((idx) => userList[idx]);
       const choicedUserIDArr = choicedAssgineeIdxArr.map((idx) => userList[idx]._id);
       setAssigneeList(choicedUserArr);
+      setChoicedUserIDArr(choicedUserIDArr);
       refreshState('ASSIGNEE', choicedUserIDArr);
     }
   }, [choicedAssgineeIdxArr]);
@@ -49,6 +69,7 @@ function IssueOptionContainer({ refreshState }) {
       const choicedLabelArr = choicedLabelIdxArr.map((idx) => labelList[idx]);
       const choicedLabelIDArr = choicedLabelIdxArr.map((idx) => labelList[idx]._id);
       setChoicedLabelList(choicedLabelArr);
+      setChoicedLabelIDArr(choicedLabelIDArr);
       refreshState('LABEL', choicedLabelIDArr);
     }
   }, [choicedLabelIdxArr]);
@@ -73,6 +94,26 @@ function IssueOptionContainer({ refreshState }) {
 
   const handleMouseLeaveAssigneeDropdown = () => setShowAssgineeDropdown(false);
   const handleMouseLeaveLabelDropdown = () => setShowLabelDropdown(false);
+
+  const handleClickUpdateButton = async () => {
+    const [assigneeResult, issueLabelResult] = await Promise.all([
+      api.post(`/assignee`, { data: choicedUserIDArr, issueId }),
+      api.post(`/issue-label`, { data: choicedLabelIDArr, issueId }),
+    ]);
+    if (!assigneeResult.isSuccess) throw new Error(assigneeResult.message);
+    if (!issueLabelResult.isSuccess) throw new Error(issueLabelResult.message);
+
+    if (assigneeResult.isSuccess && issueLabelResult.isSuccess) {
+      setToast({
+        isActive: true,
+        title: '옵션이 업데이트 되었습니다❗️',
+        mode: 'success',
+      });
+      callUserAPI();
+      callLabelAPI();
+      callAPIAboutEditMode();
+    }
+  };
 
   const returnNewArr = (choicedIdxArr, idx, key) => {
     if (choicedIdxArr.includes(idx)) {
@@ -173,7 +214,7 @@ function IssueOptionContainer({ refreshState }) {
   };
 
   return (
-    <Wrapper theme={theme}>
+    <Wrapper theme={theme} className={className}>
       {ISSUE_OPTIONS_ARRAY.map((option, idx) => (
         <IssueOptionItem key={idx}>
           <IssueOptionTitle>
@@ -188,6 +229,9 @@ function IssueOptionContainer({ refreshState }) {
           {createDropdown(option)}
         </IssueOptionItem>
       ))}
+      {mode === 'EDIT' && (
+        <UpdateButton onClick={handleClickUpdateButton}>옵션 업데이트</UpdateButton>
+      )}
     </Wrapper>
   );
 }
@@ -209,12 +253,13 @@ const IssueOptionItem = styled.div`
   padding: 32px;
   background-color: white;
   position: relative;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
   display: flex;
   flex-direction: column;
   gap: 10px;
-  &:last-child {
-    border-bottom: none;
+
+  &:first-of-type {
+    border-top: none;
   }
 `;
 
@@ -270,4 +315,17 @@ const UserImage = styled(ProfileImage)`
 
 const CursorLabelButton = styled(LabelButton)`
   cursor: pointer;
+`;
+
+const UpdateButton = styled.div`
+  ${seroCenterAlign}
+  justify-content: center;
+  background-color: white;
+  padding: 8px 16px;
+  background-color: ${(props) => props.theme.colors.lightPurple};
+  color: white;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0px 0px 16px 16px;
 `;

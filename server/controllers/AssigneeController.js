@@ -1,10 +1,20 @@
-import { AssigneeService } from './../services/AssigneeService.js';
+import { AssigneeService } from '../services/AssigneeService.js';
 import { error } from '../errors/index.js';
 
 const getAssignees = async (req, res) => {
   try {
     const { issueId } = req.query;
     const result = await AssigneeService.getAssignees(issueId);
+    return res.json({ success: true, result });
+  } catch (e) {
+    return res.json({ success: false, message: error.GET_ASSIGNEE_ERROR });
+  }
+};
+
+const getIssueAssignees = async (req, res) => {
+  try {
+    const { issueId } = req.query;
+    const result = await AssigneeService.getIssueAssignees(issueId);
     return res.json({ success: true, result });
   } catch (e) {
     return res.json({ success: false, message: error.GET_ASSIGNEE_ERROR });
@@ -31,4 +41,9 @@ const deleteAssignee = async (req, res) => {
   }
 };
 
-export const AssigneeController = { getAssignees, deleteAssignee, createAssignee };
+export const AssigneeController = {
+  getAssignees,
+  getIssueAssignees,
+  deleteAssignee,
+  createAssignee,
+};

@@ -1,4 +1,4 @@
-import { CommentService } from './../services/CommentService.js';
+import { CommentService } from '../services/CommentService.js';
 import { error } from '../errors/index.js';
 
 const getComments = async (req, res) => {

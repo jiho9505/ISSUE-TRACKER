@@ -47,6 +47,7 @@ export default Issue;
 const IssueContainer = styled.div`
   display: flex;
   background-color: white;
+  width: 100%;
   height: 100px;
   border-top: 1px solid ${(props) => props.color};
   padding: 21px 30px;
