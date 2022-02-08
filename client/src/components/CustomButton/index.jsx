@@ -80,7 +80,7 @@ const getButtonCss = ({ sizeLevel }) => {
   switch (sizeLevel) {
     case 1:
       return css`
-        width: 120px;
+        width: 130px;
         height: 40px;
         background: #007aff;
         border-radius: 11px;

@@ -163,7 +163,7 @@ const CommentButtonContainer = styled.div`
 `;
 
 const CommentButton = styled(CustomButton)`
-  width: 130px;
+  width: 140px;
 `;
 
 const RightContainer = styled.div`
