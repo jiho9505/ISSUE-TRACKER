@@ -19,6 +19,7 @@ const getIssues = async (status, filter, writer, page) => {
   const result = [];
 
   const pushCoreContent = (issue, assignees, issueLabels) => {
+    if (!issue) return;
     const issueResult = {
       _id: issue._id,
       title: issue.title,
@@ -51,6 +52,7 @@ const getIssues = async (status, filter, writer, page) => {
         Assignee.find({ issueId }).populate('userId'),
         IssueLabel.find({ issueId }).populate('labelId'),
       ]);
+
       return [issue, assignees, issueLabels];
     }
     const [assignees, issueLabels] = await Promise.all([
