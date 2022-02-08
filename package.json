@@ -30,8 +30,7 @@
     "multer-s3": "^2.10.0"
   },
   "devDependencies": {
-    "concurrently": "^6.2.1",
-    "nodemon": "^2.0.13"
+    "concurrently": "^6.2.1"
   },
   "type": "module"
 }
