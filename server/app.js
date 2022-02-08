@@ -4,9 +4,9 @@ import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
 import ApiRouter from './routes/index.js';
-import loadDotEnv from './config/dotenv.js';
+// import loadDotEnv from './config/dotenv.js';
 
-loadDotEnv();
+// loadDotEnv();
 
 const __dirname = path.resolve();
 const app = express();
