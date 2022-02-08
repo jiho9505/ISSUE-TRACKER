@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { useSetRecoilState } from 'recoil';
@@ -8,11 +8,13 @@ import ProfileImage from '@/components/ProfileImage';
 import Dropdown from '@/components/Dropdown';
 import Alert from '@/components/Alert';
 import WritingComment from '@/components/WritingComment';
+import CustomButton from '@/components/CustomButton';
+import EditCompletionButton from '../EditCompletionButton';
 
 import { seroCenterAlign, allCenterAlign } from '@/static/style/mixin';
-import { WRITE } from '@/static/constants/image-path';
+import { WRITE, CANCEL_BLUE } from '@/static/constants/image-path';
 import { getTimeMadeIssue } from '@/utils/helper';
-import { DELETE } from '@/api/base';
+import { DELETE, PATCH } from '@/api/base';
 import { toastAtom } from '@/store/toastState';
 
 function Comment({ info }) {
@@ -20,15 +22,45 @@ function Comment({ info }) {
   const [showEditDropdown, setShowEditDropdown] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
+  const [commentText, setCommentText] = useState(info?.content);
+  const patchMutation = useMutation((body) => PATCH(`/comment?id=${info?._id}`, body));
   const deleteMutation = useMutation(() => DELETE(`/comment?id=${info?._id}`));
   const queryClient = useQueryClient();
   const setToast = useSetRecoilState(toastAtom);
-
   const handleMouseLeaveEditDropdown = () => setShowEditDropdown(false);
   const handleClickEditContainer = () => setShowEditDropdown(!showEditDropdown);
   const handleClickEditSpan = () => setIsEditMode(true);
   const handleClickDeleteSpan = () => setIsDeleteMode(true);
+  const refreshCommentText = (_, { content }) => setCommentText(content);
 
+  const handleClickEditCancelButton = () => {
+    setShowEditDropdown(false);
+    setIsEditMode(false);
+  };
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    const body = { content: commentText };
+    const result = await patchMutation.mutateAsync(body);
+
+    if (!result.data.success) {
+      setToast({
+        isActive: true,
+        title: result.data.message,
+        mode: 'fail',
+      });
+      return;
+    }
+
+    setToast({
+      isActive: true,
+      title: '코멘트를 업데이트 하였습니다.',
+      mode: 'success',
+    });
+
+    queryClient.invalidateQueries('COMMENT');
+    setIsEditMode(false);
+    setShowEditDropdown(false);
+  };
   const handleClickAlert = async (e) => {
     if (['alert__overlay', 'alert__cancel'].includes(e.target.className)) setIsDeleteMode(false);
     if (e.target.className === 'alert__delete') {
@@ -58,7 +90,17 @@ function Comment({ info }) {
     <Wrapper theme={theme}>
       <ProfileImage imageSrc={info.avatar} />
       {isEditMode ? (
-        <WritingComment />
+        <form onSubmit={handleSubmitForm}>
+          <WritingComment refreshState={refreshCommentText} value={commentText} />
+
+          <CommentButtonContainer>
+            <EditCancelButton sizeLevel={1} theme={theme} onClick={handleClickEditCancelButton}>
+              <img src={CANCEL_BLUE} />
+              <span>편집 취소</span>
+            </EditCancelButton>
+            <EditCompletionButton onSubmit={handleSubmitForm} />
+          </CommentButtonContainer>
+        </form>
       ) : (
         <Content>
           <Top>
@@ -93,7 +135,7 @@ function Comment({ info }) {
   );
 }
 
-export default Comment;
+export default memo(Comment);
 
 const Wrapper = styled.div`
   display: flex;
@@ -169,5 +211,20 @@ const DropdownItem = styled.div`
   cursor: pointer;
   &:last-child {
     border-top: 1px solid ${(props) => props.theme.colors.border};
+  }
+`;
+
+const CommentButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  gap: 10px;
+`;
+
+const EditCancelButton = styled(CustomButton)`
+  background-color: white;
+  border: 1px solid ${(props) => props.theme.colors.blue};
+  span {
+    color: ${(props) => props.theme.colors.blue};
   }
 `;
