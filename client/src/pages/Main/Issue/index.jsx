@@ -5,7 +5,7 @@ import { useTheme } from '@emotion/react';
 import ProfileImage from '@/components/ProfileImage';
 import LabelButton from '@/components/LabelButton';
 
-import { EXCLAMATION_MARK_BLUE, GUIDE } from '@/static/constants/image-path';
+import { EXCLAMATION_MARK_BLUE, GUIDE, BOX } from '@/static/constants/image-path';
 import { seroCenterAlign } from '@/static/style/mixin';
 import { getTimeMadeIssue } from '@/utils/helper';
 import { useNavigate } from '@/core/Router';

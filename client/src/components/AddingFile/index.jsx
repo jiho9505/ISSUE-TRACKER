@@ -8,7 +8,7 @@ function AddingFile() {
     <AddingFileContainer>
       <label htmlFor="file-id">
         <img src={CLIP} alt="파일 첨부" />
-        <span>파일 첨부하기 </span>
+        <span>파일 첨부하기 [Coming Soon] </span>
       </label>
       <input type="file" id="file-id" disabled />
     </AddingFileContainer>

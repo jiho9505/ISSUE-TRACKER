@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
 import ProfileImage from '@/components/ProfileImage';
+import Dropdown from '@/components/Dropdown';
 
 import { seroCenterAlign, allCenterAlign } from '@/static/style/mixin';
 import { WRITE } from '@/static/constants/image-path';
@@ -25,6 +26,10 @@ function Comment({ info }) {
             <Edit>
               <img src={WRITE} />
               <span>편집</span>
+              <EditDropdown>
+                <DropdownItem>수정하기</DropdownItem>
+                <DropdownItem>삭제하기</DropdownItem>
+              </EditDropdown>
             </Edit>
           </TopRight>
         </Top>
@@ -93,5 +98,21 @@ const Edit = styled.div`
   gap: 3px;
   img {
     width: 35%;
+  }
+  position: relative;
+`;
+
+const EditDropdown = styled(Dropdown)`
+  top: 20px;
+  left: -30px;
+  width: 90px;
+`;
+
+const DropdownItem = styled.div`
+  padding: 8px;
+  ${allCenterAlign}
+
+  &:last-child {
+    border-top: 1px solid ${(props) => props.theme.colors.border};
   }
 `;
