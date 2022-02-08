@@ -4,8 +4,8 @@
   "description": "new_project",
   "main": "app.js",
   "engine": {
-    "node": "16.13.0",
-    "npm": "8.1.0"
+    "node": "12.18.3",
+    "npm": "6.14.6"
   },
   "scripts": {
     "start": "nodemon server/app.js",
