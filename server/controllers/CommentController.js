@@ -14,7 +14,10 @@ const getComments = async (req, res) => {
 const createComment = async (req, res) => {
   try {
     const body = req.body;
-    await CommentService.createComment(body);
+    const writer = req._id;
+    const newBody = { ...body, writer };
+
+    await CommentService.createComment(newBody);
     return res.json({ success: true });
   } catch (e) {
     return res.json({ success: false, message: error.CREATE_COMMENT_ERROR });
@@ -25,7 +28,7 @@ const updateComment = async (req, res) => {
   try {
     const { id } = req.query;
     const body = req.body;
-    await CommentService.getComments(id, body);
+    await CommentService.updateComment(id, body);
     return res.json({ success: true });
   } catch (e) {
     return res.json({ success: false, message: error.UPDATE_COMMENT_ERROR });
