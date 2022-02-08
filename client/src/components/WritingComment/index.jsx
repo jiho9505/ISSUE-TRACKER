@@ -6,12 +6,10 @@ import AddingFile from '@/components/AddingFile';
 
 const COMMENT_MAX_LENGTH = 10000;
 
-function WritingComment({ refreshState }) {
+function WritingComment({ refreshState, value }) {
   const theme = useTheme();
-  const [description, setDescription] = useState('');
   const [isFocus, setIsFocus] = useState(false);
   const handleChangeTextArea = (e) => {
-    setDescription(e.target.value);
     refreshState('COMMENT', { content: e.target.value });
   };
 
@@ -20,18 +18,18 @@ function WritingComment({ refreshState }) {
 
   return (
     <WritingCommentContainer theme={theme} isFocus={isFocus}>
-      {description && <TextAreaLabel>코멘트를 입력하세요</TextAreaLabel>}
+      {value && <TextAreaLabel>코멘트를 입력하세요</TextAreaLabel>}
       <TextArea
         placeholder="코멘트를 입력하세요"
         onChange={handleChangeTextArea}
         onFocus={handleFocusTextArea}
         onBlur={handleBlurTextArea}
-        value={description}
+        value={value}
         isFocus={isFocus}
         required
         maxLength={COMMENT_MAX_LENGTH}
       />
-      {description && <TextLength>띄어쓰기 포함 {description.length}자</TextLength>}
+      {value && <TextLength>띄어쓰기 포함 {value.length}자</TextLength>}
       <AddingFile />
     </WritingCommentContainer>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { useSetRecoilState } from 'recoil';
@@ -145,7 +145,7 @@ function IssueOptionContainer({ refreshState }) {
   const createLabelListInDropdown = () => {
     return labelList.map((item, idx) => (
       <Item key={item._id} onClick={() => handleClickLabel(choicedLabelIdxArr, idx)}>
-        <LabelButton info={item} />
+        <CursorLabelButton info={item} />
         {createCircleImg(choicedLabelIdxArr, idx)}
       </Item>
     ));
@@ -192,7 +192,7 @@ function IssueOptionContainer({ refreshState }) {
   );
 }
 
-export default IssueOptionContainer;
+export default memo(IssueOptionContainer);
 
 const Wrapper = styled.div`
   width: 308px;
@@ -266,4 +266,8 @@ const ItemContent = styled.div`
 const UserImage = styled(ProfileImage)`
   width: 20px;
   height: 20px;
+`;
+
+const CursorLabelButton = styled(LabelButton)`
+  cursor: pointer;
 `;

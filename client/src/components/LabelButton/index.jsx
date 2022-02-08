@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-function LabelButton({ info }) {
+function LabelButton({ info, className }) {
   return (
-    <Button type="button" bgColor={info.bgColor} textColor={info.textColor}>
+    <Button className={className} type="button" bgColor={info.bgColor} textColor={info.textColor}>
       {info.name}
     </Button>
   );
