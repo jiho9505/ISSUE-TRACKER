@@ -186,3 +186,8 @@ const DeleteIssueButton = styled.div`
     color: ${({ theme }) => theme.colors.red};
   }
 `;
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
