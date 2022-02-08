@@ -11,9 +11,10 @@ import { useNavigate } from '@/core/Router';
 function Login() {
   const theme = useTheme();
   const navigateTo = useNavigate();
+  const OAUTH_ID = '14ddc04eb71b85c1d26b';
 
   const handleClickGithubLogin = async () => {
-    const URL = `https://github.com/login/oauth/authorize?client_id=${process.env.OAUTH_ID}`;
+    const URL = `https://github.com/login/oauth/authorize?client_id=${OAUTH_ID}`;
     window.location.assign(URL);
   };
 

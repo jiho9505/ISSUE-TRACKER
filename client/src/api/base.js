@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_PREFIX = process.env.API_PREFIX;
-
+// const API_PREFIX = process.env.API_PREFIX;
+const API_PREFIX = 'https://fleek-tracker.herokuapp.com/api';
 const config = {
   withCredentials: true,
 };
