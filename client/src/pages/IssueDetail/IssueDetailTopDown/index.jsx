@@ -31,8 +31,6 @@ function IssueDetailTopDown() {
     );
   };
 
-  if (isLoading) return <Loader />;
-
   return (
     <DownPart theme={theme}>
       {createIssueStatus()}

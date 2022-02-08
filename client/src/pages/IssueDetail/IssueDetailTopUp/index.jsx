@@ -76,8 +76,6 @@ function IssueDetailTopUp() {
     queryClient.invalidateQueries(['ISSUE']);
   };
 
-  if (isLoading) return <Loader />;
-
   return (
     <UpPart onSubmit={handleClickCompletion}>
       <PageTitle
