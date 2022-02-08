@@ -26,9 +26,9 @@ module.exports = merge(commonWebpack, {
       generateStatsFile: true,
     }),
     new CleanWebpackPlugin(),
-    new Dotenv({
-      path: '.env',
-    }),
+    // new Dotenv({
+    //   path: '.env',
+    // }),
   ],
   optimization: {
     splitChunks: {
