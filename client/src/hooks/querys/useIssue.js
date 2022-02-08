@@ -21,9 +21,13 @@ export const useIssueQuery = (paramGetIssue) => {
 };
 
 export const useIssueDetailQuery = (id) => {
-  const { data, isLoading } = useQuery(['ISSUE', 'DETAIL'], () => GET(`/issue/detail?id=${id}`), {
-    refetchInterval: ISSUE_REFETCH,
-  });
+  const { data, isLoading } = useQuery(
+    ['ISSUE', 'DETAIL', id],
+    () => GET(`/issue/detail?id=${id}`),
+    {
+      refetchInterval: ISSUE_REFETCH,
+    }
+  );
   const result = processQueryData(data);
   return [result, isLoading];
 };

@@ -31,6 +31,12 @@ function IssueDetailTopDown() {
     );
   };
 
+  if (isLoading)
+    return (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    );
   return (
     <DownPart theme={theme}>
       {createIssueStatus()}
@@ -43,6 +49,12 @@ function IssueDetailTopDown() {
 }
 
 export default IssueDetailTopDown;
+
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const DownPart = styled.div`
   margin-top: 20px;

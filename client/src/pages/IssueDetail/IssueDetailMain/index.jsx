@@ -106,33 +106,25 @@ function IssueDetailMain() {
   return (
     <IssueDetailMainContainer theme={theme}>
       <CommentContainer>
-        {isLoading ? (
-          <LoaderContainer>
-            <Loader />
-          </LoaderContainer>
-        ) : (
-          <>
-            {comments?.map((comment) => (
-              <Comment key={comment._id} info={comment} />
-            ))}
+        {comments?.map((comment) => (
+          <Comment key={comment._id} info={comment} />
+        ))}
 
-            <WritingPart>
-              <ProfileImage imageSrc={userImage} />
-              <WritingComment refreshState={refreshState} value={commentText} />
-            </WritingPart>
-            <CommentButtonContainer>
-              <CommentButton
-                onClick={handleClickCommentButtonBtn}
-                sizeLevel={1}
-                bgColor={theme.colors.blue}
-                opacity={opacity}
-              >
-                <img src={PLUS_WHITE} alt="이슈 작성 아이콘" />
-                코멘트 작성
-              </CommentButton>
-            </CommentButtonContainer>
-          </>
-        )}
+        <WritingPart>
+          <ProfileImage imageSrc={userImage} />
+          <WritingComment refreshState={refreshState} value={commentText} />
+        </WritingPart>
+        <CommentButtonContainer>
+          <CommentButton
+            onClick={handleClickCommentButtonBtn}
+            sizeLevel={1}
+            bgColor={theme.colors.blue}
+            opacity={opacity}
+          >
+            <img src={PLUS_WHITE} alt="이슈 작성 아이콘" />
+            코멘트 작성
+          </CommentButton>
+        </CommentButtonContainer>
       </CommentContainer>
       <RightContainer>
         <IIssueOptionContainer refreshState={() => {}} mode="EDIT" />
@@ -147,12 +139,6 @@ function IssueDetailMain() {
 }
 
 export default IssueDetailMain;
-
-const LoaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const IssueDetailMainContainer = styled.div`
   display: flex;
