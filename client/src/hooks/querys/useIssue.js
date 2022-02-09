@@ -14,6 +14,7 @@ export const useIssueQuery = (paramGetIssue) => {
     () => GET(`/issue?status=${status}&filter=${filter}&page=${page}`),
     {
       refetchInterval: ISSUE_REFETCH,
+      keepPreviousData: true,
     }
   );
   const result = processQueryData(data);
