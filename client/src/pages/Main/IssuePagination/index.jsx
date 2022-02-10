@@ -18,12 +18,14 @@ function IssuePagination() {
 
   return (
     <div>
-      {issueLength && (
+      {issueLength ? (
         <Pagination
           refreshState={refreshState}
           length={issueLengthByStatus}
           standard={PAGINATION_LIMIT}
         />
+      ) : (
+        <></>
       )}
     </div>
   );
