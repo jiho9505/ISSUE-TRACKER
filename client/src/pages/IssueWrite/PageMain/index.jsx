@@ -93,7 +93,7 @@ function PageMain() {
 
   const switchPage = () => {
     timer = setTimeout(() => {
-      navigateTo('/');
+      navigateTo('/main');
     }, switchPageTime);
   };
 

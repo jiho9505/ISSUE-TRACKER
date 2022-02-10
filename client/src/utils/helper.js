@@ -16,7 +16,9 @@ export const preventXSS = (text) => {
 };
 
 export const getTimeMadeIssue = (issueTime) => {
-  const secDiff = (new Date().getTime() - new Date(issueTime).getTime()) / 1000;
+  let secDiff = (new Date().getTime() - new Date(issueTime).getTime()) / 1000;
+
+  if (secDiff < 0) secDiff += 4;
 
   if (secDiff < 60) {
     const sec = Math.floor(secDiff);
