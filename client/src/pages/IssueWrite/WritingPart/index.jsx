@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 import WritingComment from '@/components/WritingComment';
 import WritingTitle from '@/components/WritingTitle';
 
-function WritingPart({ refreshState }) {
+function WritingPart({ refreshState, value }) {
   return (
     <WritingPartContainer>
       <WritingTitle refreshState={refreshState} />
-      <WritingComment refreshState={refreshState} />
+      <WritingComment refreshState={refreshState} value={value} />
     </WritingPartContainer>
   );
 }

@@ -101,7 +101,7 @@ function PageMain() {
     <Form onSubmit={handleSubmitForm}>
       <ContentContainer>
         <ProfileImage imageSrc={imageSrc} />
-        <WritingPart refreshState={refreshState} />
+        <WritingPart refreshState={refreshState} value={comment.content} />
         <IssueOptionContainer refreshState={refreshState} />
       </ContentContainer>
 

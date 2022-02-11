@@ -89,7 +89,7 @@ function IssueDetailTopUp() {
         {isEditTitle ? (
           <EditCompletionButton onSubmit={handleClickCompletion} />
         ) : (
-          <IssueToggleButton onClick={handleClickIssueToggle} />
+          <IssueToggleButton onClick={handleClickIssueToggle} status={issueDetail?.isOpen} />
         )}
       </ButtonContainer>
     </UpPart>
