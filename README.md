@@ -118,3 +118,10 @@ Backend
 ├── Use Token using Github OAuth
 └── Deploy using AWS
 ```
+
+## Author
+
+👤 **문지호**
+
+* Github: [@jiho9505](https://github.com/jiho9505)
+
